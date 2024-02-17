@@ -9,6 +9,6 @@ definePageMeta({
 
 <template>
   <div>
-    This is the home page
+    Stats in the area
   </div>
 </template>

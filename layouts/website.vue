@@ -1,17 +1,17 @@
 <template>
-  <a-layout class="layout">
+  <a-layout>
     <!-- ---------------------------------------------- -->
     <!-- Header -->
     <!-- ---------------------------------------------- -->
     <NavigationWebHeader />
 
-    <a-layout-content style="padding: 0 50px">
+    <a-layout-content>
       <slot />
     </a-layout-content>
 
-          <!-- ---------------------------------------------- -->
-      <!-- Footer -->
-      <!-- ---------------------------------------------- -->
-    <NavigationWebFooter />
+    <!-- ---------------------------------------------- -->
+    <!-- Footer -->
+    <!-- ---------------------------------------------- -->
+    <!-- <NavigationWebFooter /> -->
   </a-layout>
 </template>

@@ -9,6 +9,6 @@ definePageMeta({
 
 <template>
   <div>
-    This is the home page
+    Click to report here
   </div>
 </template>
