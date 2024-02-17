@@ -1,27 +1,22 @@
 <script setup lang="ts">
-import { TrashIcon } from "vue-tabler-icons";
+
+definePageMeta({
+  layout: 'website',
+})
 
 </script>
 
 
 <template>
   <div>
-    Hello world
+    <a-breadcrumb style="margin: 16px 0">
+      <a-breadcrumb-item>User</a-breadcrumb-item>
+      <a-breadcrumb-item>Bill</a-breadcrumb-item>
+    </a-breadcrumb>
+    <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
+      Bill is a cat.
+    </div>
 
-    <v-btn>Button</v-btn>
-
-  <a-breadcrumb>
-    <a-breadcrumb-item>Home</a-breadcrumb-item>
-    <a-breadcrumb-item><a href="">Application Center</a></a-breadcrumb-item>
-    <a-breadcrumb-item><a href="">Application List</a></a-breadcrumb-item>
-    <a-breadcrumb-item>An Application</a-breadcrumb-item>
-  </a-breadcrumb>
-
-wahome
-  <TrashIcon
-                    size="18"
-                    style="cursor: pointer"
-                    color="red"
-                  />
+    Hello world!!!
   </div>
 </template>
