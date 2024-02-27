@@ -1,30 +1,38 @@
+
 <script setup lang="ts">
+import UserTable from "@/components/UserTable.vue";
 import type { TableColumnsType } from "ant-design-vue";
 
 import {
   TrademarkCircleFilled,
-  PlusSquareOutlined
+  PlusSquareOutlined,
 } from "@ant-design/icons-vue";
+
 useHead({
-  title: "Cases",
+  title: "Users",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Explore and connect with other users on the platform. Build your network and engage with the community.",
+    },
+  ],
 });
 
-const router = useRouter();
-
 const {
-  isEditingCases,
-  resetCasesFormState,
-  getSingleCase,
-  getAllCases,
-  deleteSingleCase,
-  casesFormState
-} = useCases();
+  isEditingUser,
+  getAllUsers,
+  getSingleUser,
+  deleteSingleUser,
+  resetUsersFormState,
+  userFormState,
+} = useUsers();
 
-const response = await useApi<IGetAllCases>("/cases", {
+const response = await useApi<IGetAllUsers>("/users", {
   method: "GET",
 });
 
-casesFormState.value = response?.data;
+userFormState.value = response?.data;
 
 const columns = ref<TableColumnsType>([
   {
@@ -32,94 +40,45 @@ const columns = ref<TableColumnsType>([
     dataIndex: "id",
     key: "id",
     resizable: true,
-    width: 50,
+    sorter: true,
   },
   {
-    title: "Case ID",
-    dataIndex: "case_uuid",
-    key: "case_uuid",
+    title: "Full Name",
+    dataIndex: "full_name",
+    key: "full_name",
     resizable: true,
-    width: 150,
+    sorter: true,
   },
-  {
-    title: "Category",
-    dataIndex: "crime_type",
-    key: "crime_type",
-    resizable: true,
-    width: 200,
-  },
-  {
-    title: "Location",
-    dataIndex: "location",
-    key: "location",
-    resizable: true,
-    width: 150,
-    ellipsis: true,
-  },
-  {
-    title: "Priority",
-    dataIndex: "priority",
-    key: "priority",
-    resizable: true,
-    width: 150,
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    resizable: true,
-    width: 150,
-  },
-  // {
-  //   title: "Anonymous",
-  //   dataIndex: "is_anonymous",
-  //   key: "is_anonymous",
-  //   resizable: true,
-  //   width: 150,
-  // },
-  // {
-  //   title: "Date posted",
-  //   dataIndex: "created_at",
-  //   key: "created_at",
-  //   resizable: true,
-  //   width: 150,
-  // },
+
   {
     title: "Actions",
     key: "action",
-    resizable: true,
-    width: 150,
+    // fixed: 'right',
+    // width: 100,
   },
 ]);
 
-function handleResizeColumn(w: any, col: any) {
-  col.width = w;
-}
+const router = useRouter();
 
-const editEventComment = async (comment_id: string) => {
-  isEditingCases.value = true;
-  const response = await getSingleCase(comment_id);
-  router.push(`/cases/${response?.id}`);
+const editUser = async (user_id: string) => {
+  isEditingUser.value = true;
+  const response = await getSingleUser(user_id);
+
+  router.push(`/users/${response?.username}`);
 };
 
-const openEventsCommentsForm = () => {
-  isEditingCases.value = false;
-  resetCasesFormState();
-  router.push("/cases/new-comment");
-};
-
-const showDeleteConfirm = async (comment_id: number) => {
+const deleteUser = async (user_id: number) => {
   Modal.confirm({
-    title: 'Delete event comment',
-    icon: 'TrademarkCircleFilled',
-    content: 'Are you sure you want to delete this comment?',
-    okText: 'Yes',
+    title: "Delete user",
+    icon: "TrademarkCircleFilled",
+    content: "Are you sure you want to delete this user?",
+    okText: "Yes",
     centered: true,
-    okType: 'danger',
-    cancelText: 'No',
+    okType: "danger",
+    cancelText: "No",
     async onOk() {
-      await deleteSingleCase(comment_id)
-      await getAllCases()
+      await deleteSingleUser(user_id);
+      await getAllUsers();
     },
     onCancel() {
       return;
@@ -129,57 +88,13 @@ const showDeleteConfirm = async (comment_id: number) => {
 </script>
 
 <template>
-  <div class="pa-4">
-    <!-- ---------------------------------------------- -->
-    <!--Title -->
-    <!-- ---------------------------------------------- -->
-    <h1 class="text-h1 py-4">Cases</h1>
-
-    <!-- ---------------------------------------------- -->
-    <!--Event comments table -->
-    <!-- ---------------------------------------------- -->
-    <v-row>
-      <v-col cols="12" md="12">
-        <div class="py-7 pt-1">
-          <div class="px-3 pb-5">
-            <v-btn color="info" @click="openEventsCommentsForm()">
-              <div class="d-flex align-center gap-2">
-                <PlusSquareOutlined :size="24" />
-                New case
-              </div>
-            </v-btn>
-          </div>
-          <div>
-            <a-table
-              :dataSource="casesFormState"
-              :columns="columns"
-              @resizeColumn="handleResizeColumn"
-              :scroll="{ x: 2000 }"
-              :expand-column-width="1000"
-            >
-              <template #bodyCell="{ column, record }">
-
-                <!-- Actions -->
-                <template v-if="column.key === 'action'">
-                  <TrashIcon
-                    size="18"
-                    style="cursor: pointer"
-                    color="red"
-                    @click="showDeleteConfirm(record.id)"
-                  />
-                  <a-divider type="vertical" />
-                  <EditIcon
-                    size="18"
-                    color="blue"
-                    style="cursor: pointer"
-                    @click="editEventComment(record.id)"
-                  />
-                </template>
-              </template>
-            </a-table>
-          </div>
-        </div>
-      </v-col>
-    </v-row>
+  <div>
+    here we go
+    <Datagrid
+      :dataSource="userFormState"
+      :columns="columns"
+      @edit="editUser"
+      @delete="deleteUser"
+    />
   </div>
 </template>
