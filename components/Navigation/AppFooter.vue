@@ -2,7 +2,7 @@
 
 <template>
   <a-layout-footer style="text-align: center">
-    Ant Design ©2018 Created by Ant UED
+    Michelle Ndanu &copy; 2024
   </a-layout-footer>
 </template>
 
