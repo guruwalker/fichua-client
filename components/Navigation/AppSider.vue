@@ -23,20 +23,25 @@ const menuItems = [
 </script>
 
 <template>
-  <a-layout-sider v-model:collapsed="collapsed" collapsible>
-    <div style="height: 64px; background-color: grey">
+  <a-layout-sider v-model:collapsed="collapsed" class="sider" collapsible>
+    <div style="height: 64px; background-color: #f5f5f5">
       <div
         style="
-          height: 100%;
+          max-width: 180px;
+          max-height: 70px;
           display: flex;
           align-items: center;
           justify-content: center;
         "
       >
-        <h1>Logo</h1>
+        <v-img src="/images/fichua-logo.png" />
       </div>
     </div>
-    <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+    <a-menu
+      v-model:selectedKeys="selectedKeys"
+      mode="inline"
+      style="height: 100%"
+    >
       <a-menu-item v-for="item in menuItems" :key="item.key">
         <NuxtLink :to="item.to">
           <component :is="item.icon" />
@@ -46,21 +51,3 @@ const menuItems = [
     </a-menu>
   </a-layout-sider>
 </template>
-
-
-
-<style scoped>
-#components-layout-demo-side .logo {
-  height: 32px;
-  margin: 16px;
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.site-layout .site-layout-background {
-  background: #fff;
-}
-[data-theme="dark"] .site-layout .site-layout-background {
-  background: #2c3e50;
-}
-</style>
-
