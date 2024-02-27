@@ -1,57 +1,47 @@
 <script setup lang="ts">
 import {
-  PieChartOutlined,
-  DesktopOutlined,
+  UsergroupAddOutlined,
+  ReadOutlined,
   UserOutlined,
-  TeamOutlined,
-  FileOutlined,
+  AreaChartOutlined,
+  BellOutlined,
+  GroupOutlined
 } from "@ant-design/icons-vue";
+import { ref } from "vue";
 
 const collapsed = ref<boolean>(false);
 const selectedKeys = ref<string[]>(["1"]);
 
+const menuItems = [
+  { key: "1", icon: GroupOutlined, title: "Overview", to: "/overview"},
+  { key: "3", icon: AreaChartOutlined, title: "Analytics", to: "/analytics" },
+  { key: "2", icon: ReadOutlined, title: "Cases", to: "/cases" },
+  { key: "4", icon: UsergroupAddOutlined, title: "Users", to: "/users" },
+  { key: "4", icon: BellOutlined, title: "Updates", to: "/updates" },
+  { key: "5", icon: UserOutlined, title: "Profile", to: "/profile" },
+];
 </script>
 
 <template>
   <a-layout-sider v-model:collapsed="collapsed" collapsible>
-    <div class="logo" />
+    <div style="height: 64px; background-color: grey">
+      <div
+        style="height: 100%; display: flex; align-items: center; justify-content: center"
+      >
+        <h1>Logo</h1>
+      </div>
+    </div>
     <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-      <a-menu-item key="1">
-        <pie-chart-outlined />
-        <span>Option 1</span>
+      <NuxtLink :to="item.to">
+        <a-menu-item v-for="item in menuItems" :key="item.key">
+        <component :is="item.icon" />
+        <span>{{ item.title }}</span>
       </a-menu-item>
-      <a-menu-item key="2">
-        <desktop-outlined />
-        <span>Option 2</span>
-      </a-menu-item>
-      <a-sub-menu key="sub1">
-        <template #title>
-          <span>
-            <user-outlined />
-            <span>User</span>
-          </span>
-        </template>
-        <a-menu-item key="3">Tom</a-menu-item>
-        <a-menu-item key="4">Bill</a-menu-item>
-        <a-menu-item key="5">Alex</a-menu-item>
-      </a-sub-menu>
-      <a-sub-menu key="sub2">
-        <template #title>
-          <span>
-            <team-outlined />
-            <span>Team</span>
-          </span>
-        </template>
-        <a-menu-item key="6">Team 1</a-menu-item>
-        <a-menu-item key="8">Team 2</a-menu-item>
-      </a-sub-menu>
-      <a-menu-item key="9">
-        <file-outlined />
-        <span>File</span>
-      </a-menu-item>
+      </NuxtLink>
     </a-menu>
   </a-layout-sider>
 </template>
+
 
 
 <style scoped>
@@ -65,7 +55,7 @@ const selectedKeys = ref<string[]>(["1"]);
   background: #fff;
 }
 [data-theme="dark"] .site-layout .site-layout-background {
-  background: #141414;
+  background: #2c3e50;
 }
 </style>
 
