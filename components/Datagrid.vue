@@ -37,15 +37,15 @@ const handleDelete = (id: number) => {
     >
       <template #bodyCell="{ column, record }">
         <!-- User type -->
-        <template v-if="column.key === 'user_type'">
-          <span v-if="record.user_type === 'user'">
-            <a-tag color="red"> User </a-tag>
+        <template v-if="column.key === 'role'">
+          <span v-if="record.role === 'user'">
+            <a-tag color="success"> User </a-tag>
           </span>
-          <span v-else-if="record.user_type === 'event_organizer'">
-            <a-tag color="blue">Organizer</a-tag>
+          <span v-else-if="record.role === 'admin'">
+            <a-tag color="blue">Admin</a-tag>
           </span>
-          <span v-else-if="record.user_type === 'super_admin'">
-            <a-tag color="grey">Super Admin</a-tag>
+          <span v-else-if="record.role === 'officer'">
+            <a-tag color="cyan">Officer</a-tag>
           </span>
         </template>
 
