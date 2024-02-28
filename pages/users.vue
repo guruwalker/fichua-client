@@ -90,7 +90,7 @@ const columns = ref<TableColumnsType>([
   {
     title: "Actions",
     key: "action",
-    fixed: 'right',
+    fixed: "right",
     width: 100,
   },
 ]);
@@ -153,7 +153,9 @@ const deleteUser = async (user_id: number) => {
             :ghost="false"
           >
             <template #extra>
-              <a-button key="1" type="primary" :color="'#5f8524'"> Create User </a-button>
+              <a-button key="1" type="primary" :color="'#5f8524'">
+                Create User
+              </a-button>
             </template>
           </a-page-header>
         </a-col>
@@ -185,7 +187,7 @@ const deleteUser = async (user_id: number) => {
 
   <!-- Edit User Drawer -->
   <a-drawer
-    :width="500"
+    width="100%"
     title="Edit user"
     placement="bottom"
     :open="showEditUserDrawer"

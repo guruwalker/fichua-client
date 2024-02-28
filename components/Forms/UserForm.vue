@@ -1,123 +1,59 @@
-<script setup lang="ts">
-import { slugify } from "~~/utils/Slugify";
+<script lang="ts" setup>
+interface FormState {
+  username: string;
+  password: string;
+  remember: boolean;
+}
 
-const { isEditingUser, userFormState, updateSingleUser, createUser } =
-  useUsers();
-
-const saveUser = async () => {
-  if (isEditingUser.value) {
-    await updateSingleUser(userFormState.value.id);
-  } else {
-    await createUser();
-  }
+const formState = ref<FormState>({
+  username: "",
+  password: "",
+  remember: true,
+});
+const onFinish = (values: any) => {
+  console.log("Success:", values);
 };
 
-// Watch for changes in the name and update the slug
-watch(
-  () => userFormState.value.full_name,
-  (newName) => {
-    userFormState.value.username = slugify(newName);
-  }
-);
+const onFinishFailed = (errorInfo: any) => {
+  console.log("Failed:", errorInfo);
+};
 </script>
 
 <template>
-  <h3 class="text-h3 pt-12 pb-3">Enter user details</h3>
-  <v-row>
-    <v-col cols="auto">
-      <v-label class="font-weight-bold mb-1">Full name</v-label>
-      <v-text-field
-        v-model="userFormState.full_name"
-        variant="outlined"
-        placeholder="Name"
-        hide-details
-        color="primary"
-      ></v-text-field>
-    </v-col>
-    <v-col cols="auto">
-      <v-label class="font-weight-bold mb-1">Username</v-label>
-      <v-text-field
-        v-model="userFormState.username"
-        :readonly="true"
-        variant="outlined"
-        placeholder="Username"
-        hide-details
-        color="primary"
-      ></v-text-field>
-    </v-col>
-  </v-row>
-  <v-row>
-    <v-col cols="auto">
-      <v-label class="font-weight-bold mb-1">Email</v-label>
-      <v-text-field
-        v-model="userFormState.email"
-        variant="outlined"
-        placeholder="Email"
-        hide-details
-        color="primary"
-      ></v-text-field>
-    </v-col>
-    <v-col cols="auto">
-      <v-label class="font-weight-bold mb-1">Phone number</v-label>
-      <v-text-field
-        v-model="userFormState.phone_number"
-        variant="outlined"
-        placeholder="Phone number"
-        hide-details
-        color="primary"
-      ></v-text-field>
-    </v-col>
-  </v-row>
-  <v-row>
-    <v-col cols="auto">
-      <v-label class="font-weight-bold mb-1">Password</v-label>
-      <v-text-field
-        v-model="userFormState.password"
-        variant="outlined"
-        placeholder="Password"
-        hide-details
-        color="primary"
-      ></v-text-field>
-    </v-col>
-    <v-col cols="auto">
-      <v-label class="font-weight-bold mb-1">User type</v-label>
-      <v-text-field
-        v-model="userFormState.user_type"
-        variant="outlined"
-        placeholder="User type"
-        hide-details
-        color="primary"
-      ></v-text-field>
-    </v-col>
-  </v-row>
-  <v-row>
-    <v-col cols="auto">
-      <v-label class="font-weight-bold mb-1">Organization</v-label>
-      <v-text-field
-        v-model="userFormState.organization_id"
-        variant="outlined"
-        placeholder="Organization ID"
-        hide-details
-        color="primary"
-      ></v-text-field>
-    </v-col>
-  </v-row>
-  <v-row>
-    <v-col cols="auto">
-      <v-label class="font-weight-bold mb-1">Is verified</v-label>
-      <v-text-field
-        v-model="userFormState.is_verified"
-        variant="outlined"
-        placeholder="Verification status"
-        hide-details
-        color="primary"
-      ></v-text-field>
-    </v-col>
-  </v-row>
-
-  <v-row class="py-12 px-6" justify="end">
-    <v-btn color="secondary" @click="saveUser()">
-      {{ isEditingUser ? "Update" : "Create" }}
-    </v-btn>
-  </v-row>
+  <div style="display: flex">
+    <a-form
+      :model="formState"
+      name="basic"
+      :label-col="{ span: 8 }"
+      :wrapper-col="{ span: 16 }"
+      autocomplete="off"
+      @finish="onFinish"
+      @finishFailed="onFinishFailed"
+    >
+      <a-row>
+        <a-col :span="24">
+          <a-form-item
+            label="Full name"
+            name="fullname"
+            :rules="[
+              { required: true, message: 'Please input your full name!' },
+            ]"
+          >
+            <a-input v-model:value="formState.username" />
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item
+            label="Password"
+            name="password"
+            :rules="[
+              { required: true, message: 'Please input your password!' },
+            ]"
+          >
+            <a-input-password v-model:value="formState.password" />
+          </a-form-item>
+        </a-col>
+      </a-row>
+    </a-form>
+  </div>
 </template>

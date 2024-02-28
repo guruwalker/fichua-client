@@ -1,6 +1,5 @@
 
 <script setup lang="ts">
-import UserTable from "@/components/UserTable.vue";
 import type { TableColumnsType } from "ant-design-vue";
 
 import {
@@ -9,14 +8,7 @@ import {
 } from "@ant-design/icons-vue";
 
 useHead({
-  title: "Users",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Explore and connect with other users on the platform. Build your network and engage with the community.",
-    },
-  ],
+  title: "Cases",
 });
 
 const route = useRoute();
@@ -29,71 +21,120 @@ const pageNameCapitalized = computed(() => {
 });
 
 const {
-  isEditingUser,
-  getAllUsers,
-  getSingleUser,
-  deleteSingleUser,
-  resetUsersFormState,
-  userFormState,
-} = useUsers();
+  isEditingCases,
+  getAllCases,
+  getSingleCase,
+  deleteSingleCase,
+  resetCasesFormState,
+  casesFormState,
+} = useCases();
 
-const response = await useApi<IGetAllUsers>("/users", {
+const response = await useApi<IGetAllCases>("/cases", {
   method: "GET",
 });
 
-userFormState.value = response?.data;
+casesFormState.value = response?.data;
 
 const columns = ref<TableColumnsType>([
   {
-    title: "id",
+    title: "ID",
     dataIndex: "id",
     key: "id",
     resizable: true,
     sorter: true,
+    width: 100,
   },
   {
-    title: "Full Name",
-    dataIndex: "full_name",
-    key: "full_name",
+    title: "Reported By",
+    dataIndex: "reported_by",
+    key: "reported_by",
+    resizable: true,
+    sorter: true,
+    width: 150,
+  },
+  {
+    title: "Category",
+    dataIndex: "crime_type",
+    key: "crime_type",
     resizable: true,
     sorter: true,
   },
-
+  {
+    title: "Statement",
+    dataIndex: "statement",
+    key: "statement",
+    resizable: true,
+    sorter: true,
+    ellipsis: true,
+    width: 260
+  },
+  {
+    title: "Location",
+    dataIndex: "location",
+    key: "location",
+    resizable: true,
+    sorter: true,
+  },
+  {
+    title: "Assigned to",
+    dataIndex: "assigned_officer",
+    key: "assigned_officer",
+    resizable: true,
+    sorter: true,
+    width: 190
+  },
+  {
+    title: "Priority",
+    dataIndex: "priority",
+    key: "priority",
+    resizable: true,
+    sorter: true,
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    resizable: true,
+    sorter: true,
+  },
+  {
+    title: "Date closed",
+    dataIndex: "date_closed",
+    key: "date_closed",
+    resizable: true,
+    sorter: true,
+  },
   {
     title: "Actions",
     key: "action",
-    // fixed: 'right',
-    // width: 100,
+    fixed: "right",
+    width: 100,
   },
 ]);
 
 const router = useRouter();
 
-const showEditUserDrawer = ref<boolean>(false);
+const showEditCaseDrawer = ref<boolean>(false);
 
-const submitUpdateUser = async () => {
+const submitUpdateCase = async () => {
   console.log("user");
 };
 
-const editUser = async (user_id: string) => {
-  // isEditingUser.value = true;
-  // const response = await getSingleUser(user_id);
-
-  // router.push(`/users/${response?.username}`);
-  showEditUserDrawer.value = true
+const editCase = async (case_id: string) => {
+  showEditCaseDrawer.value = true;
 };
 
-const deleteUser = async (user_id: number) => {
+const deleteCase = async (case_id: number) => {
   Modal.confirm({
-    title: "Delete user",
-    content: "Are you sure you want to delete this user?",
+    title: "Delete case",
+    content: "Are you sure you want to delete this case?",
     okText: "Yes",
     centered: true,
     okType: "danger",
     cancelText: "No",
     async onOk() {
-      await deleteSingleUser(user_id);
-      await getAllUsers();
+      await deleteSingleCase(case_id);
+      await getAllCases();
     },
     onCancel() {
       return;
@@ -107,9 +148,6 @@ const deleteUser = async (user_id: number) => {
     <!-- ---------------------------------------------- -->
     <!-- Header -->
     <!-- ---------------------------------------------- -->
-    <!-- ---------------------------------------------- -->
-    <!-- Header -->
-    <!-- ---------------------------------------------- -->
     <!-- Breadcrumb -->
     <a-breadcrumb style="height: 40px; display: flex; align-items: center">
       <a-breadcrumb-item style="color: #5f8524; font-weight: 600"
@@ -118,38 +156,65 @@ const deleteUser = async (user_id: number) => {
       <a-breadcrumb-item>{{ pageNameCapitalized }}</a-breadcrumb-item>
     </a-breadcrumb>
 
-    <!-- Page Title -->
-    <div class="header">
-      <a-card :title="pageNameCapitalized"> </a-card>
-    </div>
+    <a-space direction="vertical" style="width: 100%">
+      <a-row
+        :gutter="[
+          { xs: 8, sm: 16, md: 24, lg: 32 },
+          { xs: 8, sm: 16, md: 24, lg: 32 },
+        ]"
+      >
+        <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+          <a-page-header
+            title="Cases"
+            sub-title="Manage system cases"
+            :ghost="false"
+          >
+            <template #extra>
+              <a-button key="1" type="primary" :color="'#5f8524'">
+                Create new case
+              </a-button>
+            </template>
+          </a-page-header>
+        </a-col>
+      </a-row>
+    </a-space>
+
     <!-- ---------------------------------------------- -->
     <!-- Search bar -->
     <!-- ---------------------------------------------- -->
+    <a-space direction="vertical" style="width: 100%; padding: 14px">
+      <a-input-search
+        v-model:value="value"
+        placeholder="Search cases"
+        enter-button
+        @search="onSearch"
+      />
+    </a-space>
 
     <!-- ---------------------------------------------- -->
     <!-- Datagrid -->
     <!-- ---------------------------------------------- -->
     <Datagrid
-      :dataSource="userFormState"
+      :dataSource="casesFormState"
       :columns="columns"
-      @edit="editUser"
-      @delete="deleteUser"
+      @edit="editCase"
+      @delete="deleteCase"
     />
   </div>
 
-  <!-- Edit User Drawer -->
+  <!-- Edit case Drawer -->
   <a-drawer
-    :width="500"
-    title="Edit user"
+    width="100%"
+    title="Edit case"
     placement="bottom"
-    :open="showEditUserDrawer"
-    @close="showEditUserDrawer = false"
+    :open="showEditCaseDrawer"
+    @close="showEditCaseDrawer = false"
   >
     <template #extra>
-      <a-button style="margin-right: 8px" @click="showEditUserDrawer = false"
+      <a-button style="margin-right: 8px" @click="showEditCaseDrawer = false"
         >Cancel</a-button
       >
-      <a-button type="primary" @click="submitUpdateUser">Submit</a-button>
+      <a-button type="primary" @click="submitUpdateCase">Submit</a-button>
     </template>
     <FormsUserForm />
   </a-drawer>

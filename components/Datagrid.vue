@@ -28,7 +28,7 @@ const handleDelete = (id: number) => {
 </script>
 
 <template>
-  <div style="padding: 10px;">
+  <div style="padding: 10px">
     <a-table
       :dataSource="dataSource"
       :columns="columns"
@@ -46,6 +46,40 @@ const handleDelete = (id: number) => {
           </span>
           <span v-else-if="record.role === 'officer'">
             <a-tag color="cyan">Officer</a-tag>
+          </span>
+        </template>
+
+        <!-- Assigned officer -->
+        <template v-if="column.key === 'assigned_officer'">
+          <span v-if="record.assigned_officer > 0">
+            {{ record.assigned.full_name }} ({{ record.assigned.id }})
+          </span>
+        </template>
+
+        <!-- Reporter -->
+        <template v-if="column.key === 'reported_by'">
+          <span v-if="record.reported_by > 0">
+            {{ record.reporter.full_name }} ({{ record.reporter.id }})
+          </span>
+        </template>
+
+        <!-- Priority -->
+        <template v-if="column.key === 'priority'">
+          <span v-if="record.priority === 'high'">
+            <a-tag color="red"> High </a-tag>
+          </span>
+          <span v-else-if="record.priority === 'medium'">
+            <a-tag color="blue">Medium</a-tag>
+          </span>
+          <span v-else-if="record.priority === 'low'">
+            <a-tag color="cyan">Low</a-tag>
+          </span>
+        </template>
+
+        <!-- Case status -->
+        <template v-if="column.key === 'status'">
+          <span v-if="record.status === 'assigned'">
+            <a-tag color="success"> Assigned </a-tag>
           </span>
         </template>
 
