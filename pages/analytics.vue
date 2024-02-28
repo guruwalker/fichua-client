@@ -49,10 +49,12 @@ const pageNameCapitalized = computed(() => {
       </a-row>
     </a-space>
 
-    <a-row  :gutter="[
-          { xs: 8, sm: 16, md: 24, lg: 32 },
-          { xs: 8, sm: 16, md: 24, lg: 32 },
-        ]">
+    <a-row
+      :gutter="[
+        { xs: 8, sm: 16, md: 24, lg: 32 },
+        { xs: 8, sm: 16, md: 24, lg: 32 },
+      ]"
+    >
       <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <a-card title="Chart one" style="margin-top: 20px">
           <ChartsPieChart />
