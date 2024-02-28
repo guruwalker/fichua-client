@@ -19,6 +19,15 @@ useHead({
   ],
 });
 
+const route = useRoute();
+
+const pageNameCapitalized = computed(() => {
+  return route.name
+    ? route.name.toString().charAt(0).toUpperCase() +
+        route.name.toString().slice(1)
+    : "";
+});
+
 const {
   isEditingUser,
   getAllUsers,
@@ -60,17 +69,23 @@ const columns = ref<TableColumnsType>([
 
 const router = useRouter();
 
-const editUser = async (user_id: string) => {
-  isEditingUser.value = true;
-  const response = await getSingleUser(user_id);
+const showEditUserDrawer = ref<boolean>(false);
 
-  router.push(`/users/${response?.username}`);
+const submitUpdateUser = async () => {
+  console.log("user");
+};
+
+const editUser = async (user_id: string) => {
+  // isEditingUser.value = true;
+  // const response = await getSingleUser(user_id);
+
+  // router.push(`/users/${response?.username}`);
+  showEditUserDrawer.value = true
 };
 
 const deleteUser = async (user_id: number) => {
   Modal.confirm({
     title: "Delete user",
-    icon: "TrademarkCircleFilled",
     content: "Are you sure you want to delete this user?",
     okText: "Yes",
     centered: true,
@@ -89,7 +104,31 @@ const deleteUser = async (user_id: number) => {
 
 <template>
   <div>
-    here we go
+    <!-- ---------------------------------------------- -->
+    <!-- Header -->
+    <!-- ---------------------------------------------- -->
+    <!-- ---------------------------------------------- -->
+    <!-- Header -->
+    <!-- ---------------------------------------------- -->
+    <!-- Breadcrumb -->
+    <a-breadcrumb style="height: 40px; display: flex; align-items: center">
+      <a-breadcrumb-item style="color: #5f8524; font-weight: 600"
+        >Dashboard</a-breadcrumb-item
+      >
+      <a-breadcrumb-item>{{ pageNameCapitalized }}</a-breadcrumb-item>
+    </a-breadcrumb>
+
+    <!-- Page Title -->
+    <div class="header">
+      <a-card :title="pageNameCapitalized"> </a-card>
+    </div>
+    <!-- ---------------------------------------------- -->
+    <!-- Search bar -->
+    <!-- ---------------------------------------------- -->
+
+    <!-- ---------------------------------------------- -->
+    <!-- Datagrid -->
+    <!-- ---------------------------------------------- -->
     <Datagrid
       :dataSource="userFormState"
       :columns="columns"
@@ -97,4 +136,21 @@ const deleteUser = async (user_id: number) => {
       @delete="deleteUser"
     />
   </div>
+
+  <!-- Edit User Drawer -->
+  <a-drawer
+    :width="500"
+    title="Edit user"
+    placement="bottom"
+    :open="showEditUserDrawer"
+    @close="showEditUserDrawer = false"
+  >
+    <template #extra>
+      <a-button style="margin-right: 8px" @click="showEditUserDrawer = false"
+        >Cancel</a-button
+      >
+      <a-button type="primary" @click="submitUpdateUser">Submit</a-button>
+    </template>
+    <FormsUserForm />
+  </a-drawer>
 </template>

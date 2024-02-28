@@ -53,9 +53,6 @@ const menuItems = [
       <!-- Content -->
       <!-- ---------------------------------------------- -->
       <a-layout-content style="margin: 0 16px">
-        <BasePageHeader />
-
-        Search bar here
         <slot />
       </a-layout-content>
 

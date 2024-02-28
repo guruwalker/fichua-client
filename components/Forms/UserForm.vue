@@ -24,7 +24,7 @@ watch(
 <template>
   <h3 class="text-h3 pt-12 pb-3">Enter user details</h3>
   <v-row>
-    <v-col cols="12" md="6" xs="12">
+    <v-col cols="auto">
       <v-label class="font-weight-bold mb-1">Full name</v-label>
       <v-text-field
         v-model="userFormState.full_name"
@@ -34,7 +34,7 @@ watch(
         color="primary"
       ></v-text-field>
     </v-col>
-    <v-col cols="12" md="6" xs="12">
+    <v-col cols="auto">
       <v-label class="font-weight-bold mb-1">Username</v-label>
       <v-text-field
         v-model="userFormState.username"
@@ -47,7 +47,7 @@ watch(
     </v-col>
   </v-row>
   <v-row>
-    <v-col cols="12" md="6" xs="12">
+    <v-col cols="auto">
       <v-label class="font-weight-bold mb-1">Email</v-label>
       <v-text-field
         v-model="userFormState.email"
@@ -57,7 +57,7 @@ watch(
         color="primary"
       ></v-text-field>
     </v-col>
-    <v-col cols="12" md="6" xs="12">
+    <v-col cols="auto">
       <v-label class="font-weight-bold mb-1">Phone number</v-label>
       <v-text-field
         v-model="userFormState.phone_number"
@@ -69,7 +69,7 @@ watch(
     </v-col>
   </v-row>
   <v-row>
-    <v-col cols="12" md="6" xs="12">
+    <v-col cols="auto">
       <v-label class="font-weight-bold mb-1">Password</v-label>
       <v-text-field
         v-model="userFormState.password"
@@ -79,7 +79,7 @@ watch(
         color="primary"
       ></v-text-field>
     </v-col>
-    <v-col cols="12" md="6" xs="12">
+    <v-col cols="auto">
       <v-label class="font-weight-bold mb-1">User type</v-label>
       <v-text-field
         v-model="userFormState.user_type"
@@ -91,7 +91,7 @@ watch(
     </v-col>
   </v-row>
   <v-row>
-    <v-col cols="12" md="6" xs="12">
+    <v-col cols="auto">
       <v-label class="font-weight-bold mb-1">Organization</v-label>
       <v-text-field
         v-model="userFormState.organization_id"
@@ -103,7 +103,7 @@ watch(
     </v-col>
   </v-row>
   <v-row>
-    <v-col cols="12" md="6" xs="12">
+    <v-col cols="auto">
       <v-label class="font-weight-bold mb-1">Is verified</v-label>
       <v-text-field
         v-model="userFormState.is_verified"

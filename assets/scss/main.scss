@@ -16,3 +16,19 @@ html, body, *, .ant {
   padding: 12px;
 }
 
+// color of buttons to green
+:where(.css-dev-only-do-not-override-1hsjdkk).ant-btn-primary {
+  background-color: #5f8524;
+}
+
+
+ant-table-body {
+  background: #ffffff !important;
+}
+
+//
+.ant-table-thead {
+  table {
+      background: yellow !important;
+  }
+}
