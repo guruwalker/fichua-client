@@ -1,14 +1,75 @@
 <script setup lang="ts">
-
 definePageMeta({
-  layout: 'default',
-})
+  layout: "default",
+});
 
+const route = useRoute();
+
+const pageNameCapitalized = computed(() => {
+  return route.name
+    ? route.name.toString().charAt(0).toUpperCase() +
+        route.name.toString().slice(1)
+    : "";
+});
 </script>
-
 
 <template>
   <div>
-    Analytics
+    <!-- ---------------------------------------------- -->
+    <!-- Header -->
+    <!-- ---------------------------------------------- -->
+    <!-- Breadcrumb -->
+    <a-breadcrumb style="height: 40px; display: flex; align-items: center">
+      <a-breadcrumb-item style="color: #5f8524; font-weight: 600"
+        >Dashboard</a-breadcrumb-item
+      >
+      <a-breadcrumb-item>{{ pageNameCapitalized }}</a-breadcrumb-item>
+    </a-breadcrumb>
+
+    <a-space direction="vertical" style="width: 100%">
+      <a-row
+        :gutter="[
+          { xs: 8, sm: 16, md: 24, lg: 32 },
+          { xs: 8, sm: 16, md: 24, lg: 32 },
+        ]"
+      >
+        <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+          <a-page-header
+            title="Analytics"
+            sub-title="System overview"
+            :ghost="false"
+          >
+            <!-- <template #extra>
+              <a-button key="1" type="primary" :color="'#5f8524'">
+                Create User
+              </a-button>
+            </template> -->
+          </a-page-header>
+        </a-col>
+      </a-row>
+    </a-space>
+
+    <a-row  :gutter="[
+          { xs: 8, sm: 16, md: 24, lg: 32 },
+          { xs: 8, sm: 16, md: 24, lg: 32 },
+        ]">
+      <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+        <a-card title="Chart one" style="margin-top: 20px">
+          <ChartsPieChart />
+        </a-card>
+      </a-col>
+      <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+        <a-card title="Chart three" style="margin-top: 20px">
+          <ChartsHorizontalBarChart />
+        </a-card>
+      </a-col>
+    </a-row>
+    <a-row>
+      <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+        <a-card title="Chart two" style="margin-top: 20px">
+          <ChartsBarChart />
+        </a-card>
+      </a-col>
+    </a-row>
   </div>
 </template>

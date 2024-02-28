@@ -10,13 +10,15 @@
   "dependencies": {
     "@mdi/font": "^6.5.95",
     "@nuxtjs/vuetify": "^1.12.3",
+    "apexcharts": "^3.46.0",
     "axios": "^1.6.2",
     "sass": "^1.49.9",
     "vue-tabler-icons": "2.9.0",
+    "vue3-apexcharts": "^1.5.2",
     "vuetify": "3.0.1"
   },
   "devDependencies": {
-    "nuxt": "3.0.0",
-    "@ant-design-vue/nuxt": "1.1.2"
+    "@ant-design-vue/nuxt": "1.1.2",
+    "nuxt": "3.0.0"
   }
 }
