@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {
-  SettingOutlined,
+  BellOutlined,
   LogoutOutlined,
   UserOutlined,
 } from "@ant-design/icons-vue";
 
 const menuItems = [
-  { key: "1", icon: SettingOutlined, title: "Settings", to: "/overview" },
+  // { key: "1", icon: BellOutlined, title: "Updates", to: "/updates" },
   { key: "3", icon: UserOutlined, title: "Profile", to: "/profile" },
   { key: "2", icon: LogoutOutlined, title: "Logout", to: "/analytics" },
 ];

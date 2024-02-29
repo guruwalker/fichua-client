@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import {
+  PushpinOutlined,
+  LogoutOutlined,
+  UserOutlined,
+} from "@ant-design/icons-vue";
+
 definePageMeta({
   layout: "default",
 });
@@ -6,6 +12,19 @@ definePageMeta({
 useHead({
   title: "Updates | Fichua",
 });
+
+const updates = ref();
+
+const response = await useApi<IGetUpdates>("/pages/updates", {
+  method: "GET",
+});
+
+updates.value = response?.data;
+
+// Define a function to capitalize the first letter of each word
+const capitalizeFirstLetter = (str: string) => {
+  return str.replace(/\b\w/g, (char: string) => char.toUpperCase());
+};
 </script>
 
 
@@ -38,5 +57,30 @@ useHead({
         </a-col>
       </a-row>
     </a-space>
+
+    <div v-for="update in updates" :key="update.id">
+      <a-card
+        hoverable
+        :title="capitalizeFirstLetter(update.crime_type)"
+        style="margin: 20px"
+      >
+        <p style="font-size: 17px">{{ update.statement }}</p>
+        <p style="font-size: 17px">Status: {{ update.status }}</p>
+        <p style="font-size: 17px">Priority: {{ update.priority }}</p>
+        <p style="font-size: 17px">Location: {{ update.location }}</p>
+        <p style="font-size: 17px">Status: {{ update.status }}</p>
+
+      </a-card>
+    </div>
   </div>
 </template>
+
+<style scoped>
+:where(.css-dev-only-do-not-override-1hsjdkk).ant-card .ant-card-head {
+  font-size: 20px !important;
+}
+
+.ant-card-head-title {
+  font-size: 20px !important;
+}
+</style>

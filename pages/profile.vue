@@ -8,6 +8,12 @@ useHead({
 });
 
 const activeKey = ref("1");
+
+const response = await useApi<IGetUpdates>("/pages/profile/1", {
+  method: "GET",
+});
+
+const profile = response.data
 </script>
 
 
@@ -40,6 +46,8 @@ const activeKey = ref("1");
         </a-col>
       </a-row>
     </a-space>
+
+    {{ profile }}
 
     <!-- ---------------------------------------------- -->
     <!-- Tabs -->
