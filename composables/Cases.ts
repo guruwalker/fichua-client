@@ -63,7 +63,7 @@ export function useCases() {
         method: "GET",
       });
 
-      casesFormState.value = response?.data
+      casesFormState.value = response?.data.data
       return response?.data;
     } catch (error) {
       console.error("Error getAllCases::: ", error);

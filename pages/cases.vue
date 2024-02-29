@@ -33,7 +33,7 @@ const response = await useApi<IGetAllCases>("/cases", {
   method: "GET",
 });
 
-casesFormState.value = response?.data;
+casesFormState.value = response?.data.data;
 
 const columns = ref<TableColumnsType>([
   {

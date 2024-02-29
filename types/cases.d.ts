@@ -19,7 +19,10 @@ declare interface ICasesFormState {
 declare interface IGetAllCases {
   success: boolean;
   message: string;
-  data: ICasesFormState[];
+  data: {
+    meta: IMeta;
+    data: ICasesFormState[];
+  }
 }
 
 declare interface IGetSingleCase {

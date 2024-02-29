@@ -34,7 +34,7 @@ const response = await useApi<IGetAllUsers>("/users", {
   method: "GET",
 });
 
-userFormState.value = response?.data;
+userFormState.value = response?.data.data;
 
 const columns = ref<TableColumnsType>([
   {

@@ -13,7 +13,10 @@ declare interface IUserFormState {
 declare interface IGetAllUsers {
   success: boolean;
   message: string;
-  data: IUserFormState[];
+  data: {
+    data: IUserFormState[];
+    meta: IMeta
+  }
 }
 
 declare interface ICreateUserRequest extends IUserFormState {

@@ -33,13 +33,10 @@ export function useUsers() {
   const userFormState = useState<IUserFormState>("user", () => ({
     id: 0,
     full_name: "",
-    username: "",
     phone_number: "",
-    is_verified: false,
-    profile_url: "",
     email: "",
-    user_type: "",
-    organization_id: "",
+    role: "",
+    national_id: "",
     created_at: null,
     updated_at: null,
   }));
@@ -54,13 +51,10 @@ export function useUsers() {
     userFormState.value = {
       id: 0,
       full_name: "",
-      username: "",
       phone_number: "",
-      is_verified: false,
-      profile_url: "",
       email: "",
-      user_type: "",
-      organization_id: "",
+      role: "",
+      national_id: "",
       created_at: null,
       updated_at: null,
     };
@@ -74,11 +68,11 @@ export function useUsers() {
    */
   const getAllUsers = async () => {
     try {
-      const response = await useApi<IGetAllUsers>("/user", {
+      const response = await useApi<IGetAllUsers>("/users", {
         method: "GET",
       });
 
-      userFormState.value = response?.data;
+      userFormState.value = response?.data.data;
       return response?.data;
     } catch (error) {
       console.error("Error getAllUsers::: ", error);
