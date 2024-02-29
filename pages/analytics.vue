@@ -5,12 +5,20 @@ definePageMeta({
 
 const route = useRoute();
 
+const { analyticsState } = useAnalytics();
+
 const pageNameCapitalized = computed(() => {
   return route.name
     ? route.name.toString().charAt(0).toUpperCase() +
         route.name.toString().slice(1)
     : "";
 });
+
+const response = await useApi<IFetchAnalytics>("/pages/analytics", {
+  method: "GET",
+});
+
+analyticsState.value = response.data;
 </script>
 
 <template>
@@ -39,15 +47,11 @@ const pageNameCapitalized = computed(() => {
             sub-title="System overview"
             :ghost="false"
           >
-            <!-- <template #extra>
-              <a-button key="1" type="primary" :color="'#5f8524'">
-                Create User
-              </a-button>
-            </template> -->
           </a-page-header>
         </a-col>
       </a-row>
     </a-space>
+    {{ analytics }}
 
     <a-row
       :gutter="[
@@ -56,7 +60,8 @@ const pageNameCapitalized = computed(() => {
       ]"
     >
       <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-        <a-card title="Chart one" style="margin-top: 20px">
+        <a-card title="Cases comparison" style="margin-top: 20px">
+          <p>Comparison of number of cases open vs. number of closed cases</p>
           <ChartsPieChart />
         </a-card>
       </a-col>

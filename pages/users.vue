@@ -9,14 +9,7 @@ import {
 } from "@ant-design/icons-vue";
 
 useHead({
-  title: "Users",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Explore and connect with other users on the platform. Build your network and engage with the community.",
-    },
-  ],
+  title: "System users | Fichua",
 });
 
 const route = useRoute();
