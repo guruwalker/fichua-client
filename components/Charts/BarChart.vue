@@ -1,15 +1,9 @@
-<template>
-  <div>
-    <apexchart
-      height="400"
-      width="100%"
-      :options="options"
-      :series="[series]"
-    ></apexchart>
-  </div>
-</template>
-
 <script setup lang="ts">
+const { analyticsState } = useAnalytics();
+
+const barChartData = analyticsState.value.bar_chart;
+
+console.log("barChartData", barChartData);
 
 const options = ref({
   chart: {
@@ -22,12 +16,25 @@ const options = ref({
     },
   },
   xaxis: {
-    categories: ["2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015"]
-  }
+    categories: Object.keys(barChartData), // Use keys as x-axis categories
+  },
 });
 
-const series = ref({
-  name: "Score",
-  data: [30, 40, 45, 50, 49, 60, 70, 91, 125, 160]
-});
+const series = ref([
+  {
+    name: "Score",
+    data: Object.values(barChartData), // Use values as series data
+  },
+]);
 </script>
+
+<template>
+  <div>
+    <apexchart
+      height="400"
+      width="100%"
+      :options="options"
+      :series="series"
+    ></apexchart>
+  </div>
+</template

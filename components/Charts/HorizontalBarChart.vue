@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { analyticsState } = useAnalytics();
 
-const horizontalBarChartData = analyticsState.value.bar_chart;
+const horizontalBarChartData = analyticsState.value.horizontal_bar_chart;
 
 const officerFullName = horizontalBarChartData.map(
   (data) => data.officer_details.full_name

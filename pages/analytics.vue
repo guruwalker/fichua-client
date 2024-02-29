@@ -77,7 +77,7 @@ analyticsState.value = response.data;
     </a-row>
     <a-row>
       <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-        <a-card title="Chart two" style="margin-top: 20px">
+        <a-card title="Monthly cases" style="margin-top: 20px">
           <ChartsBarChart />
         </a-card>
       </a-col>
