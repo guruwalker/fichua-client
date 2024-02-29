@@ -12,7 +12,7 @@ const onFinish = (values: any) => {
 
 const onFinishFailed = (errorInfo: any) => {
   notification["error"]({
-    description: "Could not update your profile. Please try again.",
+    description: "Could not reset your password. Please try again.",
     message: "Failed",
     placement: "bottomRight",
     duration: 8,
@@ -21,8 +21,8 @@ const onFinishFailed = (errorInfo: any) => {
 
 // const isDisabled = ref(true);
 const update = async () => {
-  const response = updateProfile(1)
-  console.log('response', response)
+  // const response = updateProfile(1)
+  console.log('nothing yet')
 }
 </script>
 
@@ -38,23 +38,18 @@ const update = async () => {
     >
       <a-row>
         <a-col :span="24">
-          <a-form-item label="Full name" name="fullname" required>
+          <a-form-item label="Old password" name="old_password" required>
             <a-input v-model:value="profileFormState.user.full_name" />
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item label="Phone number" name="phone_number" required>
+          <a-form-item label="New password" name="new_password" required>
             <a-input v-model:value="profileFormState.user.phone_number" />
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item label="National ID" name="national_id" required>
+          <a-form-item label="Confirm new password" name="confirm_new_password" required>
             <a-input v-model:value="profileFormState.user.national_id" />
-          </a-form-item>
-        </a-col>
-        <a-col :span="24">
-          <a-form-item label="Email" name="email" required>
-            <a-input v-model:value="profileFormState.user.email" />
           </a-form-item>
         </a-col>
       </a-row>

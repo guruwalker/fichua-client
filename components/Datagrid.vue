@@ -10,6 +10,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  pagination: {
+    type: Object,
+    required: false,
+  },
 });
 
 const emits = defineEmits(["edit", "delete"]);
@@ -133,5 +137,8 @@ const handleDelete = (id: number) => {
         </template>
       </template>
     </a-table>
+
+    <a-pagination v-model:current="current" :total="500" />
+
   </div>
 </template>

@@ -9,11 +9,14 @@ useHead({
 
 const activeKey = ref("1");
 
-const response = await useApi<IGetUpdates>("/pages/profile/1", {
+// const profile = ref<IGetUpdates>();
+const { profileFormState } = useProfile();
+
+const response = await useApi<IProfile>("/pages/profile/1", {
   method: "GET",
 });
 
-const profile = response.data
+profileFormState.value = response.data;
 </script>
 
 
@@ -47,19 +50,25 @@ const profile = response.data
       </a-row>
     </a-space>
 
-    {{ profile }}
-
     <!-- ---------------------------------------------- -->
     <!-- Tabs -->
     <!-- ---------------------------------------------- -->
     <a-tabs v-model:activeKey="activeKey">
+      <!-- Profile -->
       <a-tab-pane key="1" tab="Profile details">
-        <FormsUserForm />
+        <FormsProfileForm />
       </a-tab-pane>
-      <a-tab-pane key="2" tab="Your reports" force-render
-        >Content of Tab Pane 2</a-tab-pane
-      >
-      <a-tab-pane key="3" tab="Reset your password">Content of Tab Pane </a-tab-pane>
+      <!-- Updates -->
+      <a-tab-pane key="2" tab="Your reports" force-render>
+        <div v-for="update in profileFormState.cases" :key="update.id">
+          <CaseCard :case="update" />
+        </div>
+      </a-tab-pane>
+      <!-- Password reset -->
+      <a-tab-pane key="3" tab="Reset your password"
+        >
+        <FormsResetPasswordForm />
+      </a-tab-pane>
     </a-tabs>
   </div>
 </template>

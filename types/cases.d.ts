@@ -25,12 +25,6 @@ declare interface IGetAllCases {
   }
 }
 
-declare interface IGetUpdates {
-  success: boolean;
-  message: string;
-  data: ICasesFormState[];
-}
-
 declare interface IGetSingleCase {
   success: boolean;
   message: string;
