@@ -14,7 +14,17 @@ export function useAnalytics() {
     },
     bar_chart: [{
       officer_id: 0,
-      number_of_closed_cases: 0
+      number_of_closed_cases: 0,
+      officer_details: {
+        id: 0,
+        full_name: "",
+        phone_number: "",
+        email: "",
+        role: "",
+        national_id: "",
+        created_at: null,
+        updated_at: null
+      }
     }]
   }));
 
@@ -32,7 +42,17 @@ export function useAnalytics() {
       },
       bar_chart: [{
         officer_id: 0,
-        number_of_closed_cases: 0
+        number_of_closed_cases: 0,
+        officer_details: {
+          id: 0,
+          full_name: "",
+          phone_number: "",
+          email: "",
+          role: "",
+          national_id: "",
+          created_at: null,
+          updated_at: null
+        }
       }]
     };
   };

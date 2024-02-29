@@ -1,17 +1,14 @@
-<template>
-  <div>
-    <apexchart
-      height="400"
-      width="100%"
-      :options="options"
-      :series="series"
-      type="bar"
-    ></apexchart>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref } from 'vue';
+const { analyticsState } = useAnalytics();
+
+const horizontalBarChartData = analyticsState.value.bar_chart;
+
+const officerFullName = horizontalBarChartData.map(
+  (data) => data.officer_details.full_name
+);
+const closedCases = horizontalBarChartData.map(
+  (data) => data.number_of_closed_cases
+);
 
 const options = ref({
   chart: {
@@ -30,14 +27,26 @@ const options = ref({
     enabled: false,
   },
   xaxis: {
-    categories: ["January", "February", "March", "April", "May", "June", "July"],
+    categories: officerFullName,
   },
 });
 
 const series = ref([
   {
-    name: "Sales",
-    data: [30, 40, 45, 50, 49, 60, 70],
+    name: "Number of Closed Cases",
+    data: closedCases,
   },
 ]);
 </script>
+
+<template>
+  <div>
+    <apexchart
+      height="400"
+      width="100%"
+      :options="options"
+      :series="series"
+      type="bar"
+    ></apexchart>
+  </div>
+</template>

@@ -66,7 +66,7 @@ analyticsState.value = response.data;
         </a-card>
       </a-col>
       <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-        <a-card title="Chart three" style="margin-top: 20px">
+        <a-card title="Officers and number of closed cases" style="margin-top: 20px">
           <ChartsHorizontalBarChart />
         </a-card>
       </a-col>

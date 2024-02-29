@@ -6,6 +6,7 @@ declare interface IAnalytics {
   bar_chart: {
     officer_id: number;
     number_of_closed_cases: number;
+    officer_details: IUserFormState
   }[]
 }
 
@@ -13,5 +14,5 @@ declare interface IAnalytics {
 declare interface IFetchAnalytics {
   success: boolean;
   message: string;
-  data: IUserFormState[];
+  data: IAnalytics;
 }

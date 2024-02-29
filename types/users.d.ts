@@ -1,14 +1,11 @@
 declare interface IUserFormState {
   id?: number;
   full_name: string;
-  username: string;
   phone_number: string;
-  profile_url: string;
   email: string;
   password?: string;
-  user_type: string;
-  organization_id: string | number;
-  is_verified: boolean;
+  role: string;
+  national_id: string
   created_at?: Date | null;
   updated_at?: Date | null;
 }
