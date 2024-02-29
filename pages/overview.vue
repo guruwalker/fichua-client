@@ -3,6 +3,9 @@ definePageMeta({
   layout: "default",
 });
 
+useHead({
+  title: "Overview | Fichua",
+});
 const route = useRoute();
 
 const pageNameCapitalized = computed(() => {

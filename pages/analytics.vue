@@ -3,6 +3,10 @@ definePageMeta({
   layout: "default",
 });
 
+useHead({
+  title: "Analytics | Fichua",
+});
+
 const route = useRoute();
 
 const { analyticsState } = useAnalytics();

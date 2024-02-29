@@ -2,6 +2,10 @@
 definePageMeta({
   layout: "default",
 });
+
+useHead({
+  title: "Updates | Fichua",
+});
 </script>
 
 

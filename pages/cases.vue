@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons-vue";
 
 useHead({
-  title: "Cases",
+  title: "Cases & Reports | Fichua",
 });
 
 const route = useRoute();

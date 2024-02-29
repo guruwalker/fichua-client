@@ -3,6 +3,10 @@ definePageMeta({
   layout: "default",
 });
 
+useHead({
+  title: "User profile | Fichua",
+});
+
 const activeKey = ref("1");
 </script>
 
