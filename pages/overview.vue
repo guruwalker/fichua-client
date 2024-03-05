@@ -16,7 +16,6 @@ const pageNameCapitalized = computed(() => {
 });
 </script>
 
-
 <template>
   <div>
     <!-- ---------------------------------------------- -->
@@ -43,15 +42,20 @@ const pageNameCapitalized = computed(() => {
             sub-title="Description of how the system works"
             :ghost="false"
           >
-            <!-- <template #extra>
-              <a-button key="1" type="primary" :color="'#5f8524'">
-                Create User
-              </a-button>
-            </template> -->
           </a-page-header>
         </a-col>
       </a-row>
     </a-space>
+
+    <h1 style="margin: 40px;">
+      Our crime reporting app is a robust and user-friendly platform designed to
+      empower communities and law enforcement agencies alike. With intuitive
+      case management, advanced analytics, and seamless collaboration features,
+      our app streamlines the reporting process, enhances data-driven
+      decision-making, and fosters a safer and more secure environment for all.
+      Join us in creating a stronger, more connected community where everyone
+      plays a role in promoting safety and justice.
+    </h1>
 
     <a-row
       :gutter="[
@@ -61,47 +65,27 @@ const pageNameCapitalized = computed(() => {
     >
       <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <a-card title="For citizens" style="margin-top: 20px">
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa quae
-            quisquam totam sed voluptatibus asperiores nesciunt delectus in sunt
-            voluptate officia iusto dolorem harum autem, magni quia ex dolore.
-            Soluta sapiente quis cupiditate eos sequi! Debitis modi officiis
-            magni similique inventore quam possimus porro obcaecati accusantium?
-            Deserunt natus beatae molestiae consequuntur mollitia, eius fugiat
-            est debitis pariatur esse ex inventore expedita accusantium eos
-            temporibus nihil minus quidem. Illum quia qui accusamus ex
-            veritatis, eveniet reprehenderit hic repellat ad eligendi dolorum
-            voluptas est maxime ducimus deleniti, perspiciatis corrupti iure
-            dolores expedita pariatur doloribus exercitationem commodi incidunt
-            optio! Ipsam facere nobis, magni aliquid consequatur delectus
-            repellendus quasi a dolore doloremque ipsa unde deserunt quam odio
-            odit architecto! Libero natus odit obcaecati dicta quasi animi
-            nostrum cumque magni neque adipisci voluptate laudantium ex
-            repudiandae necessitatibus assumenda soluta consequatur repellat,
-            modi velit aut aspernatur, quibusdam commodi id aperiam? Eveniet
-            animi doloribus dolorem delectus molestias.
-          </p>
+          <h3>What citizens can do with Fichua</h3>
+          <a-list>
+            <a-list-item> Report new cases </a-list-item>
+            <a-list-item> Manage their own accounts </a-list-item>
+            <a-list-item> See the status of their reported cases </a-list-item>
+          </a-list>
         </a-card>
       </a-col>
       <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <a-card title="For officers" style="margin-top: 20px">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa quae
-          quisquam totam sed voluptatibus asperiores nesciunt delectus in sunt
-          voluptate officia iusto dolorem harum autem, magni quia ex dolore.
-          Soluta sapiente quis cupiditate eos sequi! Debitis modi officiis magni
-          similique inventore quam possimus porro obcaecati accusantium?
-          Deserunt natus beatae molestiae consequuntur mollitia, eius fugiat est
-          debitis pariatur esse ex inventore expedita accusantium eos temporibus
-          nihil minus quidem. Illum quia qui accusamus ex veritatis, eveniet
-          reprehenderit hic repellat ad eligendi dolorum voluptas est maxime
-          ducimus deleniti, perspiciatis corrupti iure dolores expedita pariatur
-          doloribus exercitationem commodi incidunt optio! Ipsam facere nobis,
-          magni aliquid consequatur delectus repellendus quasi a dolore
-          doloremque ipsa unde deserunt quam odio odit architecto! Libero natus
-          odit obcaecati dicta quasi animi nostrum cumque magni neque adipisci
-          voluptate laudantium ex repudiandae necessitatibus assumenda soluta
-          consequatur repellat, modi velit aut aspernatur, quibusdam commodi id
-          aperiam? Eveniet animi doloribus dolorem delectus molestias.
+          <h3>Roles of officers with Fichua</h3>
+          <a-list>
+            <a-list-item
+              >Analyze statistics of cases to make informed
+              decisions</a-list-item
+            >
+            <a-list-item
+              >Investigate cases they have been assigned to</a-list-item
+            >
+            <a-list-item></a-list-item>
+          </a-list>
         </a-card>
       </a-col>
     </a-row>
@@ -114,49 +98,16 @@ const pageNameCapitalized = computed(() => {
     >
       <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <a-card title="For super admin" style="margin-top: 20px">
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa quae
-            quisquam totam sed voluptatibus asperiores nesciunt delectus in sunt
-            voluptate officia iusto dolorem harum autem, magni quia ex dolore.
-            Soluta sapiente quis cupiditate eos sequi! Debitis modi officiis
-            magni similique inventore quam possimus porro obcaecati accusantium?
-            Deserunt natus beatae molestiae consequuntur mollitia, eius fugiat
-            est debitis pariatur esse ex inventore expedita accusantium eos
-            temporibus nihil minus quidem. Illum quia qui accusamus ex
-            veritatis, eveniet reprehenderit hic repellat ad eligendi dolorum
-            voluptas est maxime ducimus deleniti, perspiciatis corrupti iure
-            dolores expedita pariatur doloribus exercitationem commodi incidunt
-            optio! Ipsam facere nobis, magni aliquid consequatur delectus
-            repellendus quasi a dolore doloremque ipsa unde deserunt quam odio
-            odit architecto! Libero natus odit obcaecati dicta quasi animi
-            nostrum cumque magni neque adipisci voluptate laudantium ex
-            repudiandae necessitatibus assumenda soluta consequatur repellat,
-            modi velit aut aspernatur, quibusdam commodi id aperiam? Eveniet
-            animi doloribus dolorem delectus molestias.
-          </p>
+          <h3>Abilities of the Super Admin with Fichua</h3>
+          <a-list>
+            <a-list-item
+              >Manage all modules: users, cases and analytics
+            </a-list-item>
+            <a-list-item>Assign officers to new cases</a-list-item>
+            <a-list-item></a-list-item>
+          </a-list>
         </a-card>
       </a-col>
-      <!-- <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-        <a-card title="For officers" style="margin-top: 20px">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa quae
-          quisquam totam sed voluptatibus asperiores nesciunt delectus in sunt
-          voluptate officia iusto dolorem harum autem, magni quia ex dolore.
-          Soluta sapiente quis cupiditate eos sequi! Debitis modi officiis magni
-          similique inventore quam possimus porro obcaecati accusantium?
-          Deserunt natus beatae molestiae consequuntur mollitia, eius fugiat est
-          debitis pariatur esse ex inventore expedita accusantium eos temporibus
-          nihil minus quidem. Illum quia qui accusamus ex veritatis, eveniet
-          reprehenderit hic repellat ad eligendi dolorum voluptas est maxime
-          ducimus deleniti, perspiciatis corrupti iure dolores expedita pariatur
-          doloribus exercitationem commodi incidunt optio! Ipsam facere nobis,
-          magni aliquid consequatur delectus repellendus quasi a dolore
-          doloremque ipsa unde deserunt quam odio odit architecto! Libero natus
-          odit obcaecati dicta quasi animi nostrum cumque magni neque adipisci
-          voluptate laudantium ex repudiandae necessitatibus assumenda soluta
-          consequatur repellat, modi velit aut aspernatur, quibusdam commodi id
-          aperiam? Eveniet animi doloribus dolorem delectus molestias.
-        </a-card>
-      </a-col> -->
     </a-row>
   </div>
 </template>
