@@ -1,59 +1,62 @@
 <script lang="ts" setup>
-interface FormState {
-  username: string;
-  password: string;
-  remember: boolean;
-}
+const { userFormState, updateSingleUser, getAllUsers } = useUsers();
 
-const formState = ref<FormState>({
-  username: "",
-  password: "",
-  remember: true,
-});
 const onFinish = (values: any) => {
-  console.log("Success:", values);
+  notification["success"]({
+    description: "Your profile has been updated successfully.",
+    message: "Success",
+    placement: "bottomRight",
+    duration: 8,
+  });
 };
 
 const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
+  notification["error"]({
+    description: "Could not update your profile. Please try again.",
+    message: "Failed",
+    placement: "bottomRight",
+    duration: 8,
+  });
 };
+
 </script>
 
 <template>
   <div style="display: flex">
     <a-form
-      :model="formState"
+      :model="userFormState"
       name="basic"
       :label-col="{ span: 8 }"
       :wrapper-col="{ span: 16 }"
       autocomplete="off"
-      @finish="onFinish"
       @finishFailed="onFinishFailed"
     >
       <a-row>
         <a-col :span="24">
-          <a-form-item
-            label="Full name"
-            name="fullname"
-            :rules="[
-              { required: true, message: 'Please input your full name!' },
-            ]"
-          >
-            <a-input v-model:value="formState.username" />
+          <a-form-item label="Full name" name="full_name" required>
+            <a-input v-model:value="userFormState.full_name" />
           </a-form-item>
         </a-col>
         <a-col :span="24">
-          <a-form-item
-            label="Password"
-            name="password"
-            :rules="[
-              { required: true, message: 'Please input your password!' },
-            ]"
-          >
-            <a-input-password v-model:value="formState.password" />
+          <a-form-item label="Phone number" name="phone_number" required>
+            <a-input v-model:value="userFormState.phone_number" />
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="National ID" name="national_id" required>
+            <a-input v-model:value="userFormState.national_id" />
+          </a-form-item>
+        </a-col>
+        <a-col :span="24">
+          <a-form-item label="Email" name="email" required>
+            <a-input v-model:value="userFormState.email" />
           </a-form-item>
         </a-col>
       </a-row>
+
+      <!-- <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
+        <a-button type="primary" @click="update()">Submit</a-button>
+      </a-form-item> -->
     </a-form>
   </div>
 </template>

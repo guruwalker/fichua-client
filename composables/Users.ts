@@ -72,7 +72,7 @@ export function useUsers() {
         method: "GET",
       });
 
-      userFormState.value = response?.data.data;
+      users.value = response?.data.data;
       return response?.data;
     } catch (error) {
       console.error("Error getAllUsers::: ", error);
@@ -128,11 +128,14 @@ export function useUsers() {
   const getSingleUser = async (user_id: string) => {
     try {
       const response = await useApi<IGetSingleUserResponse>(
-        `/user/${user_id}`,
+        `/users/${user_id}`,
         {
           method: "GET",
         }
       );
+
+      console.log('response', response.data)
+
       if (response?.success === true) {
         userFormState.value = response?.data;
         return response?.data
@@ -150,7 +153,7 @@ export function useUsers() {
    */
   const updateSingleUser = async (user_id: number | undefined) => {
     try {
-      const response = await useApi<IUpdateUserResponse>(`/user/${user_id}`, {
+      const response = await useApi<IUpdateUserResponse>(`/users/${user_id}`, {
         method: "PUT",
         data: userFormState.value satisfies IUpdateUserRequest,
       });
@@ -188,7 +191,7 @@ export function useUsers() {
    */
   const deleteSingleUser = async (user_id: number) => {
     try {
-      const deleteUserResponse = await useApi<IDeleteUserResponse>(`/user/${user_id}`, {
+      const deleteUserResponse = await useApi<IDeleteUserResponse>(`/users/${user_id}`, {
         method: "DELETE",
       });
 

@@ -23,18 +23,20 @@ const pageNameCapitalized = computed(() => {
 
 const {
   isEditingUser,
+  updateSingleUser,
+  userFormState,
   getAllUsers,
   getSingleUser,
   deleteSingleUser,
   resetUsersFormState,
-  userFormState,
+  users,
 } = useUsers();
 
 const response = await useApi<IGetAllUsers>("/users", {
   method: "GET",
 });
 
-userFormState.value = response?.data.data;
+users.value = response?.data.data;
 
 const columns = ref<TableColumnsType>([
   {
@@ -97,7 +99,14 @@ const submitUpdateUser = async () => {
 };
 
 const editUser = async (user_id: string) => {
+  await getSingleUser(user_id);
   showEditUserDrawer.value = true;
+};
+
+const updateUser = async () => {
+  await updateSingleUser(userFormState.value.id);
+  await getAllUsers();
+  showEditUserDrawer.value = false
 };
 
 const deleteUser = async (user_id: number) => {
@@ -171,7 +180,7 @@ const deleteUser = async (user_id: number) => {
     <!-- Datagrid -->
     <!-- ---------------------------------------------- -->
     <Datagrid
-      :dataSource="userFormState"
+      :dataSource="users"
       :columns="columns"
       @edit="editUser"
       @delete="deleteUser"
@@ -190,7 +199,7 @@ const deleteUser = async (user_id: number) => {
       <a-button style="margin-right: 8px" @click="showEditUserDrawer = false"
         >Cancel</a-button
       >
-      <a-button type="primary" @click="submitUpdateUser">Submit</a-button>
+      <a-button type="primary" @click="updateUser()">Submit</a-button>
     </template>
     <FormsUserForm />
   </a-drawer>
