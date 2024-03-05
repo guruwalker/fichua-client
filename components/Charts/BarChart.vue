@@ -3,8 +3,6 @@ const { analyticsState } = useAnalytics();
 
 const barChartData = analyticsState.value.bar_chart;
 
-console.log("barChartData", barChartData);
-
 const options = ref({
   chart: {
     type: "bar",

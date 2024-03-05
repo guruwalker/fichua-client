@@ -6,8 +6,6 @@ const props = defineProps({
   },
 });
 
-console.log('props', props.case)
-
 // Define a function to capitalize the first letter of each word
 const capitalizeFirstLetter = (str: string) => {
   return str.replace(/\b\w/g, (char: string) => char.toUpperCase());

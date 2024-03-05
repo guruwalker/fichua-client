@@ -22,7 +22,6 @@ const onFinishFailed = (errorInfo: any) => {
 // const isDisabled = ref(true);
 const update = async () => {
   const response = updateProfile(1)
-  console.log('response', response)
 }
 </script>
 
