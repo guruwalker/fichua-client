@@ -233,7 +233,7 @@ export function useUsers() {
   const getLoggedInUser = async (user_id: string | number) => {
     try {
       const response = await Authentication<IGetSingleUserResponse>(
-        `/user/${user_id}`,
+        `/users/${user_id}`,
         {
           method: "GET",
         }

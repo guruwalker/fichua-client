@@ -25,28 +25,22 @@ export function useAuthentication() {
     "register-form-state",
     () => ({
       full_name: "",
-      username: "",
+      national_id: "",
       email: "",
       phone_number: "",
       password: "",
-      user_type: "user",
-      profile_url: "",
-      organization_id: "",
-      is_verified: false,
+      role: "user",
     })
   );
 
   const resetRegisterFormState = () => {
     registerFormState.value = {
       full_name: "",
-      username: "",
+      national_id: "",
       email: "",
       phone_number: "",
       password: "",
-      user_type: "user",
-      profile_url: "",
-      organization_id: "",
-      is_verified: false,
+      role: "user",
     };
   };
 
@@ -94,7 +88,7 @@ export function useAuthentication() {
 
         resetLoginFormState();
 
-        router.push("/home");
+        router.push("/analytics");
       } else if (
         response?.data?.message ===
         "E_INVALID_AUTH_PASSWORD: Password mis-match"
@@ -153,7 +147,7 @@ export function useAuthentication() {
 
         resetLoginFormState();
 
-        router.push("/home");
+        router.push("/analytics");
       } else if (
         response?.data?.message ===
         "E_INVALID_AUTH_PASSWORD: Password mis-match"
@@ -199,7 +193,7 @@ export function useAuthentication() {
 
       if (response?.data?.success) {
         notification["success"]({
-          description: `Welcome to Eveenti, ${registerFormState.value.username}! We think you'll love it here.`,
+          description: `Welcome to Fichua, ${registerFormState.value.full_name}! We're here to serve the community.`,
           message: "Account has been created successfully",
           placement: "bottomRight",
           duration: 8,
