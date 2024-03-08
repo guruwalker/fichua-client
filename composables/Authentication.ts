@@ -55,7 +55,8 @@ export function useAuthentication() {
     "reset-password-form-state",
     () => ({
       password: "",
-      confirmPassword: "",
+      user_id: userId.value,
+      confirm_password: "",
     })
   );
 
@@ -265,11 +266,29 @@ export function useAuthentication() {
           data: resetPasswordFormState.value,
         }
       );
-      return response?.data.data;
+      console.log('response', response.status)
+      if (response.data.message === "Passwords do not match" && response.status === 400) {
+        notification["error"]({
+          description: "Passwords do not match.",
+          message: "Failed",
+          placement: "bottomRight",
+          duration: 8,
+        });
+      }
+
+      if (response.status === 200 && response.data.success) {
+        notification["success"]({
+          message: "Password reset successfull",
+          placement: "bottomRight",
+          duration: 8,
+        });
+      }
+      // return response?.data.data;
     } catch (error) {
       console.error("Error resetPassword::: ", error);
     }
   };
+
 
   return {
     loginFormState,

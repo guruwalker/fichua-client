@@ -28,8 +28,9 @@ declare interface IForgotPasswordRequest {
 }
 
 declare interface IResetPasswordRequest {
+  user_id: string | number;
   password: string;
-  confirmPassword: string;
+  confirm_password: string;
 }
 
 declare interface IForgotPasswordResponse {

@@ -53,10 +53,6 @@ const onFinishFailed = (errorInfo: any) => {
           </a-form-item>
         </a-col>
       </a-row>
-
-      <!-- <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-        <a-button type="primary" @click="update()">Submit</a-button>
-      </a-form-item> -->
     </a-form>
   </div>
 </template>

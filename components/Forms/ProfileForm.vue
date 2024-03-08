@@ -1,27 +1,13 @@
 <script lang="ts" setup>
 const { profileFormState, updateProfile } = useProfile();
 
-const onFinish = (values: any) => {
-  notification["success"]({
-    description: "Your profile has been updated successfully.",
-    message: "Success",
-    placement: "bottomRight",
-    duration: 8,
-  });
-};
+const { getSingleUser } = useUsers()
 
-const onFinishFailed = (errorInfo: any) => {
-  notification["error"]({
-    description: "Could not update your profile. Please try again.",
-    message: "Failed",
-    placement: "bottomRight",
-    duration: 8,
-  });
-};
+const userId = useCookie('user_id')
 
-// const isDisabled = ref(true);
 const update = async () => {
-  const response = updateProfile(1)
+  await updateProfile(userId.value)
+  // await getSingleUser(userId.value)
 }
 </script>
 
@@ -37,7 +23,7 @@ const update = async () => {
     >
       <a-row>
         <a-col :span="24">
-          <a-form-item label="Full name" name="fullname" required>
+          <a-form-item label="Full name" name="full_name" required>
             <a-input v-model:value="profileFormState.user.full_name" />
           </a-form-item>
         </a-col>
