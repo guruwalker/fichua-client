@@ -4,10 +4,10 @@ declare interface ICasesFormState {
   reported_by: string | number | null;
   crime_type: string;
   statement: string;
+  is_anonymous: boolean;
   location: string;
   status: string;
   assigned_officer: number | null;
-  attachments: string | null;
   priority: string;
   date_closed: string | Date | null;
   created_at?: Date | null;

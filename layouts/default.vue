@@ -5,11 +5,23 @@ import {
   UserOutlined,
 } from "@ant-design/icons-vue";
 
+const { logout } = useUsers();
+
 const menuItems = [
-  // { key: "1", icon: BellOutlined, title: "Updates", to: "/updates" },
   { key: "3", icon: UserOutlined, title: "Profile", to: "/profile" },
   { key: "2", icon: LogoutOutlined, title: "Logout", to: "/analytics" },
 ];
+
+const handleLogout = async () => {
+  await logout();
+
+  notification["success"]({
+    description: "Logout successfull.",
+    message: "Success",
+    placement: "bottomRight",
+    duration: 8,
+  });
+};
 </script>
 
 <template>
@@ -40,10 +52,14 @@ const menuItems = [
               <template #title>
                 <span>{{ item.title }}</span>
               </template>
-              <NuxtLink :to="item.to">
+              <NuxtLink v-if="item.key !== '2'" :to="item.to">
                 <component :is="item.icon" />
                 <span></span>
               </NuxtLink>
+              <a @click="handleLogout" v-else>
+                <component :is="item.icon" />
+                <span></span>
+              </a>
             </a-tooltip>
           </a-menu-item>
         </a-menu>

@@ -7,19 +7,28 @@ export function useUsers() {
   const userFullName = useCookie<string | undefined>("full_name");
   const userName = useCookie<string | undefined>("username");
   const userEmail = useCookie<string | undefined>("email");
-  const userType = useCookie<string | undefined>("user_type");
+  const userRole = useCookie<string | undefined>("role");
   const userPhone = useCookie<string | undefined>("phone_number");
   const userOrganizationId = useCookie<string | number | undefined>(
     "organization_id"
   );
 
   const setUserCookies = (user: IGetSingleUserResponse) => {
-    userType.value = user?.data?.user_type;
+    userRole.value = user?.data?.role;
     userFullName.value = user?.data.full_name;
     userName.value = user?.data?.username;
     userEmail.value = user?.data?.email;
     userPhone.value = user?.data.phone_number;
-    userOrganizationId.value = user?.data.organization_id;
+  };
+
+  const logout = () => {
+    userRole.value = null;
+    userFullName.value = null;
+    userName.value = null;
+    userEmail.value = null;
+    userPhone.value = null;
+    userId.value = null;
+    router.push("/");
   };
 
   const isEditingUser = useState<boolean>("is-editing-user", () => false);
@@ -257,5 +266,6 @@ export function useUsers() {
     deleteSingleUser,
     getLoggedInUser,
     resetUsersFormState,
+    logout,
   };
 }

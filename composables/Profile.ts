@@ -29,7 +29,6 @@ export function useProfile() {
       location: "",
       status: "",
       assigned_officer: null,
-      attachments: null,
       priority: "",
       date_closed: null,
       created_at: null,
@@ -64,7 +63,6 @@ export function useProfile() {
         location: "",
         status: "",
         assigned_officer: null,
-        attachments: null,
         priority: "",
         date_closed: null,
         created_at: null,
@@ -103,9 +101,9 @@ export function useProfile() {
    * ---------------------------------------------------
    *
    */
-  const updateProfile = async (user_id: number | undefined) => {
+  const updateProfile = async (user_id: string | null) => {
     try {
-      const response = await useApi<IUpdateUserResponse>(`/user/${user_id}`, {
+      const response = await useApi<IUpdateUserResponse>(`/users/${user_id}`, {
         method: "PUT",
         data: profileFormState.value.user satisfies IUpdateUserRequest,
       });
@@ -118,7 +116,7 @@ export function useProfile() {
           duration: 8,
         });
 
-        resetProfileFormState();
+        // resetProfileFormState();
         isEditingProfile.value = false;
         return response?.data;
       } else {

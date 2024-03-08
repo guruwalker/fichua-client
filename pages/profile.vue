@@ -9,10 +9,11 @@ useHead({
 
 const activeKey = ref("1");
 
-// const profile = ref<IGetUpdates>();
 const { profileFormState } = useProfile();
 
-const response = await useApi<IProfile>("/pages/profile/1", {
+const userId = useCookie('user_id')
+
+const response = await useApi<IProfile>(`/pages/profile/${userId.value}`, {
   method: "GET",
 });
 
