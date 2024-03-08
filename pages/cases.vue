@@ -27,13 +27,15 @@ const {
   deleteSingleCase,
   resetCasesFormState,
   casesFormState,
+  updateSingleCase,
+  cases
 } = useCases();
 
 const response = await useApi<IGetAllCases>("/cases", {
   method: "GET",
 });
 
-casesFormState.value = response?.data.data;
+cases.value = response?.data;
 
 const columns = ref<TableColumnsType>([
   {
@@ -116,12 +118,16 @@ const router = useRouter();
 
 const showEditCaseDrawer = ref<boolean>(false);
 
-const submitUpdateCase = async () => {
-  console.log("user");
-};
 
 const editCase = async (case_id: string) => {
+  await getSingleCase(case_id);
   showEditCaseDrawer.value = true;
+};
+
+const updateCase = async () => {
+  await updateSingleCase(casesFormState.value.id);
+  await getAllCases();
+  showEditCaseDrawer.value = false
 };
 
 const deleteCase = async (case_id: number) => {
@@ -195,7 +201,7 @@ const deleteCase = async (case_id: number) => {
     <!-- Datagrid -->
     <!-- ---------------------------------------------- -->
     <Datagrid
-      :dataSource="casesFormState"
+      :dataSource="cases.data"
       :columns="columns"
       @edit="editCase"
       @delete="deleteCase"
@@ -214,8 +220,8 @@ const deleteCase = async (case_id: number) => {
       <a-button style="margin-right: 8px" @click="showEditCaseDrawer = false"
         >Cancel</a-button
       >
-      <a-button type="primary" @click="submitUpdateCase">Submit</a-button>
+      <a-button type="primary" @click="updateCase()">Submit</a-button>
     </template>
-    <FormsUserForm />
+    <FormsCaseForm />
   </a-drawer>
 </template>

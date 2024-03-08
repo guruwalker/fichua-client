@@ -94,10 +94,6 @@ const router = useRouter();
 
 const showEditUserDrawer = ref<boolean>(false);
 
-const submitUpdateUser = async () => {
-  console.log("user");
-};
-
 const editUser = async (user_id: string) => {
   await getSingleUser(user_id);
   showEditUserDrawer.value = true;
