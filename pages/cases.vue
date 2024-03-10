@@ -10,7 +10,7 @@ import {
 useHead({
   title: "Cases & Reports | Fichua",
 });
-
+console.log('wahome')
 const route = useRoute();
 
 const pageNameCapitalized = computed(() => {
