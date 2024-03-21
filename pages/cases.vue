@@ -201,7 +201,7 @@ const deleteCase = async (case_id: number) => {
     <!-- Datagrid -->
     <!-- ---------------------------------------------- -->
     <Datagrid
-      :dataSource="cases.data"
+      :dataSource="cases"
       :columns="columns"
       @edit="editCase"
       @delete="deleteCase"

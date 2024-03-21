@@ -138,7 +138,7 @@ const handleDelete = (id: number) => {
       </template>
     </a-table>
 
-    <a-pagination v-model:current="current" :total="500" />
+    <!-- <a-pagination v-model:current="current" :total="500" /> -->
 
   </div>
 </template>

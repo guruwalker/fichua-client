@@ -81,7 +81,7 @@ export function useUsers() {
         method: "GET",
       });
 
-      users.value = response?.data.data;
+      users.value = response?.data;
       return response?.data;
     } catch (error) {
       console.error("Error getAllUsers::: ", error);
