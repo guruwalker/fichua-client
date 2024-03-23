@@ -25,6 +25,7 @@ const {
   getAllCases,
   getSingleCase,
   deleteSingleCase,
+  createCase,
   resetCasesFormState,
   casesFormState,
   updateSingleCase,
@@ -121,11 +122,15 @@ const showEditCaseDrawer = ref<boolean>(false);
 
 const editCase = async (case_id: string) => {
   await getSingleCase(case_id);
+  isEditingCases.value = true
   showEditCaseDrawer.value = true;
 };
 
-const updateCase = async () => {
-  await updateSingleCase(casesFormState.value.id);
+const submitInformation = async () => {
+  // await updateSingleCase(casesFormState.value.id);
+    isEditingCases.value
+    ? await updateSingleCase(casesFormState.value.id)
+    : await createCase();
   await getAllCases();
   showEditCaseDrawer.value = false
 };
@@ -176,7 +181,7 @@ const deleteCase = async (case_id: number) => {
             :ghost="false"
           >
             <template #extra>
-              <a-button key="1" type="primary" :color="'#5f8524'">
+              <a-button key="1" type="primary" :color="'#5f8524'" @click="showEditCaseDrawer = true">
                 Create new case
               </a-button>
             </template>
@@ -211,7 +216,7 @@ const deleteCase = async (case_id: number) => {
   <!-- Edit case Drawer -->
   <a-drawer
     width="100%"
-    title="Edit case"
+    :title="isEditingCases ? 'Edit case' : 'Create case'"
     placement="bottom"
     :open="showEditCaseDrawer"
     @close="showEditCaseDrawer = false"
@@ -220,7 +225,7 @@ const deleteCase = async (case_id: number) => {
       <a-button style="margin-right: 8px" @click="showEditCaseDrawer = false"
         >Cancel</a-button
       >
-      <a-button type="primary" @click="updateCase()">Submit</a-button>
+      <a-button type="primary" @click="submitInformation()">Submit</a-button>
     </template>
     <FormsCaseForm />
   </a-drawer>

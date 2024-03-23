@@ -28,6 +28,7 @@ const {
   getAllUsers,
   getSingleUser,
   deleteSingleUser,
+  createUser,
   resetUsersFormState,
   users,
 } = useUsers();
@@ -96,11 +97,15 @@ const showEditUserDrawer = ref<boolean>(false);
 
 const editUser = async (user_id: string) => {
   await getSingleUser(user_id);
+  isEditingUser.value = true
   showEditUserDrawer.value = true;
 };
 
-const updateUser = async () => {
-  await updateSingleUser(userFormState.value.id);
+const submitInformation = async () => {
+  // await updateSingleUser(userFormState.value.id);
+  isEditingUser.value
+    ? await updateSingleUser(userFormState.value.id)
+    : await createUser();
   await getAllUsers();
   showEditUserDrawer.value = false
 };
@@ -151,7 +156,7 @@ const deleteUser = async (user_id: number) => {
             :ghost="false"
           >
             <template #extra>
-              <a-button key="1" type="primary" :color="'#5f8524'">
+              <a-button key="1" type="primary" :color="'#5f8524'" @click="showEditUserDrawer = true">
                 Create User
               </a-button>
             </template>
@@ -186,7 +191,7 @@ const deleteUser = async (user_id: number) => {
   <!-- Edit User Drawer -->
   <a-drawer
     width="100%"
-    title="Edit user"
+    :title="isEditingUser ? 'Edit user' : 'Create user'"
     placement="bottom"
     :open="showEditUserDrawer"
     @close="showEditUserDrawer = false"
@@ -195,7 +200,7 @@ const deleteUser = async (user_id: number) => {
       <a-button style="margin-right: 8px" @click="showEditUserDrawer = false"
         >Cancel</a-button
       >
-      <a-button type="primary" @click="updateUser()">Submit</a-button>
+      <a-button type="primary" @click="submitInformation()">Submit</a-button>
     </template>
     <FormsUserForm />
   </a-drawer>

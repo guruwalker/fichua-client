@@ -2,11 +2,11 @@
 const { casesFormState, isEditingCases, createCase, updateSingleCase } =
   useCases();
 
-const submit = async () => {
-  isEditingCases.value
-    ? await updateSingleCase(casesFormState.value.id)
-    : await createCase();
-};
+// const submit = async () => {
+//   isEditingCases.value
+//     ? await updateSingleCase(casesFormState.value.id)
+//     : await createCase();
+// };
 </script>
 
 <template>
@@ -59,9 +59,9 @@ const submit = async () => {
         </a-col>
       </a-row>
 
-      <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
+      <!-- <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
         <a-button type="primary" @click="submit()">Submit</a-button>
-      </a-form-item>
+      </a-form-item> -->
     </a-form>
   </div>
 </template>
