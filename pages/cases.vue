@@ -10,8 +10,12 @@ import {
 useHead({
   title: "Cases & Reports | Fichua",
 });
-console.log('wahome')
+
 const route = useRoute();
+
+const userRole = useCookie<string | undefined>("role");
+
+const userId = useCookie<string | number>("user_id");
 
 const pageNameCapitalized = computed(() => {
   return route.name
@@ -100,18 +104,18 @@ const columns = ref<TableColumnsType>([
     resizable: true,
     sorter: true,
   },
-  {
-    title: "Date closed",
-    dataIndex: "date_closed",
-    key: "date_closed",
-    resizable: true,
-    sorter: true,
-  },
+  // {
+  //   title: "Date closed",
+  //   dataIndex: "date_closed",
+  //   key: "date_closed",
+  //   resizable: true,
+  //   sorter: true,
+  // },
   {
     title: "Actions",
     key: "action",
     fixed: "right",
-    width: 100,
+    width: 130,
   },
 ]);
 
@@ -119,12 +123,20 @@ const router = useRouter();
 
 const showEditCaseDrawer = ref<boolean>(false);
 
+const showViewCaseModal = ref<boolean>(false);
 
 const editCase = async (case_id: string) => {
   await getSingleCase(case_id);
   isEditingCases.value = true
   showEditCaseDrawer.value = true;
 };
+
+const viewCase = async (case_id: string) => {
+  await getSingleCase(case_id);
+  // isEditingCases.value = true
+  showViewCaseModal.value = true;
+};
+
 
 const submitInformation = async () => {
   // await updateSingleCase(casesFormState.value.id);
@@ -152,6 +164,15 @@ const deleteCase = async (case_id: number) => {
     },
   });
 };
+
+const getOfficerCases = async () => {
+  const newResponse = await useApi<IGetAllCases>(`/cases/officer/${userId.value}`, {
+  method: "GET",
+});
+
+cases.value = newResponse?.data;
+
+}
 </script>
 
 <template>
@@ -184,6 +205,10 @@ const deleteCase = async (case_id: number) => {
               <a-button key="1" type="primary" :color="'#5f8524'" @click="showEditCaseDrawer = true">
                 Create new case
               </a-button>
+
+              <a-button v-if="userRole !== 'user'" key="2" type="primary" :color="'#5f8524'" @click="getOfficerCases()">
+                Get cases assigned to me
+              </a-button>
             </template>
           </a-page-header>
         </a-col>
@@ -210,6 +235,7 @@ const deleteCase = async (case_id: number) => {
       :columns="columns"
       @edit="editCase"
       @delete="deleteCase"
+      @view="viewCase"
     />
   </div>
 
@@ -229,4 +255,13 @@ const deleteCase = async (case_id: number) => {
     </template>
     <FormsCaseForm />
   </a-drawer>
+
+    <!-- View case modal -->
+    <a-modal
+      v-model:open="showViewCaseModal"
+      centered
+      @ok="showViewCaseModal = false"
+    >
+    <CaseCard :case="casesFormState"/>
+    </a-modal>
 </template>

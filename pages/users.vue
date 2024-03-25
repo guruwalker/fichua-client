@@ -87,7 +87,7 @@ const columns = ref<TableColumnsType>([
     title: "Actions",
     key: "action",
     fixed: "right",
-    width: 100,
+    width: 130,
   },
 ]);
 
@@ -95,10 +95,18 @@ const router = useRouter();
 
 const showEditUserDrawer = ref<boolean>(false);
 
+const showUserModal = ref<boolean>(false);
+
 const editUser = async (user_id: string) => {
   await getSingleUser(user_id);
   isEditingUser.value = true
   showEditUserDrawer.value = true;
+}
+
+const viewUser = async (user_id: string) => {
+  await getSingleUser(user_id);
+  // isEditingUser.value = true
+  showUserModal.value = true;
 };
 
 const submitInformation = async () => {
@@ -185,6 +193,7 @@ const deleteUser = async (user_id: number) => {
       :columns="columns"
       @edit="editUser"
       @delete="deleteUser"
+      @view="viewUser"
     />
   </div>
 
@@ -204,4 +213,13 @@ const deleteUser = async (user_id: number) => {
     </template>
     <FormsUserForm />
   </a-drawer>
+
+  <!-- View user modal -->
+  <a-modal
+      v-model:open="showUserModal"
+      centered
+      @ok="showUserModal = false"
+    >
+    <UserCard :user="userFormState"/>
+    </a-modal>
 </template>

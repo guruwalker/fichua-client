@@ -16,7 +16,7 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(["edit", "delete"]);
+const emits = defineEmits(["edit", "delete", "view"]);
 
 function handleResizeColumn(w: any, col: any) {
   col.width = w;
@@ -29,6 +29,11 @@ const handleEdit = (id: number) => {
 const handleDelete = (id: number) => {
   emits("delete", id);
 };
+
+const handleView = (id: number) => {
+  emits("view", id);
+};
+
 </script>
 
 <template>
@@ -86,10 +91,13 @@ const handleDelete = (id: number) => {
         <!-- Case status -->
         <template v-if="column.key === 'status'">
           <span v-if="record.status === 'assigned'">
-            <a-tag color="success"> Assigned </a-tag>
+            <a-tag color="cyan"> Assigned </a-tag>
           </span>
           <span v-if="record.status === 'reported'">
             <a-tag color="red">Reported </a-tag>
+          </span>
+          <span v-if="record.status === 'closed'">
+            <a-tag color="success">Closed </a-tag>
           </span>
         </template>
 
@@ -139,6 +147,13 @@ const handleDelete = (id: number) => {
             color="blue"
             style="cursor: pointer"
             @click="handleEdit(record.id)"
+          />
+          <a-divider type="vertical" />
+          <EyeIcon
+            size="18"
+            color="grey"
+            style="cursor: pointer"
+            @click="handleView(record.id)"
           />
         </template>
       </template>

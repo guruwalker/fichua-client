@@ -1,9 +1,14 @@
 <script lang="ts" setup>
-const { casesFormState, createCase, isEditingCases, updateSingleCase } = useCases();
+import { useDisplay } from 'vuetify/lib/framework.mjs';
+
+const { casesFormState, createCase, isEditingCases, updateSingleCase, getAllCases } =
+  useCases();
 
 const route = useRoute();
 
 const userRole = useCookie<string | undefined>("role");
+
+const userId = useCookie<string | number>("user_id");
 
 const showSubmitButton = ref<boolean>(false);
 
@@ -17,6 +22,21 @@ const submit = async () => {
 const officers = await useApi<IGetAllUsers>("/users/officers", {
   method: "GET",
 });
+
+const closeSingleCase = async () => {
+  casesFormState.value.is_closed = true
+  casesFormState.value.closed_by = userId.value
+  casesFormState.value.date_closed = Date.UTC()
+  casesFormState.value.status = 'closed'
+  await updateSingleCase(casesFormState.value.id)
+
+  await getAllCases();
+
+  if(process.client) {
+    window.location.reload()
+  }
+
+};
 </script>
 
 <template>
@@ -30,7 +50,6 @@ const officers = await useApi<IGetAllUsers>("/users/officers", {
       @finishFailed="onFinishFailed"
     >
       <a-row>
-        <!-- {{ officers }} wahomeee -->
         <a-col :span="24">
           <a-form-item label="Case UUID" name="case_uuid" required>
             <a-input disabled v-model:value="casesFormState.case_uuid" />
@@ -80,7 +99,7 @@ const officers = await useApi<IGetAllUsers>("/users/officers", {
             </a-select>
           </a-form-item>
         </a-col>
-        <a-col :span="24">
+        <a-col :span="24" v-if="userRole !== 'user'">
           <a-form-item label="Assigned to" name="assigned_officer" required>
             <a-select v-model:value="casesFormState.assigned_officer">
               <a-select-option
@@ -106,12 +125,25 @@ const officers = await useApi<IGetAllUsers>("/users/officers", {
         </a-col> -->
       </a-row>
 
-      <a-form-item
-        v-if="showSubmitButton"
-        :wrapper-col="{ offset: 8, span: 16 }"
-      >
-        <a-button type="primary" @click="submit()">Submit</a-button>
-      </a-form-item>
+      <a-row>
+        <a-col :span="12">
+          <a-form-item
+            v-if="showSubmitButton"
+            :wrapper-col="{ offset: 8, span: 16 }"
+          >
+            <a-button type="primary" @click="submit()">Submit</a-button>
+          </a-form-item>
+        </a-col>
+
+        <a-col :span="12">
+          <a-form-item
+            v-if="userRole !== 'user'"
+            :wrapper-col="{ offset: 8, span: 16 }"
+          >
+            <a-button type="primary" @click="closeSingleCase()">Close this case</a-button>
+          </a-form-item>
+        </a-col>
+      </a-row>
     </a-form>
   </div>
 </template>
