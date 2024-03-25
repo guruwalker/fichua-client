@@ -78,12 +78,18 @@ const handleDelete = (id: number) => {
           <span v-else-if="record.priority === 'low'">
             <a-tag color="cyan">Low</a-tag>
           </span>
+          <span v-else-if="record.priority === 'unknown'">
+            <a-tag color="cyan">Unknown</a-tag>
+          </span>
         </template>
 
         <!-- Case status -->
         <template v-if="column.key === 'status'">
           <span v-if="record.status === 'assigned'">
             <a-tag color="success"> Assigned </a-tag>
+          </span>
+          <span v-if="record.status === 'reported'">
+            <a-tag color="red">Reported </a-tag>
           </span>
         </template>
 

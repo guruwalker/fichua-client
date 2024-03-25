@@ -1,14 +1,22 @@
 <script lang="ts" setup>
-const { casesFormState, isEditingCases, createCase, updateSingleCase } =
-  useCases();
+const { casesFormState, createCase, isEditingCases, updateSingleCase } = useCases();
 
-// const isUserRole = ref<bool>()
+const route = useRoute();
 
-// const submit = async () => {
-//   isEditingCases.value
-//     ? await updateSingleCase(casesFormState.value.id)
-//     : await createCase();
-// };
+const userRole = useCookie<string | undefined>("role");
+
+const showSubmitButton = ref<boolean>(false);
+
+showSubmitButton.value = route.fullPath.includes("new-case");
+
+const submit = async () => {
+  isEditingCases.value
+    ? await updateSingleCase(casesFormState.value.id)
+    : await createCase();
+};
+const officers = await useApi<IGetAllUsers>("/users/officers", {
+  method: "GET",
+});
 </script>
 
 <template>
@@ -22,14 +30,10 @@ const { casesFormState, isEditingCases, createCase, updateSingleCase } =
       @finishFailed="onFinishFailed"
     >
       <a-row>
+        <!-- {{ officers }} wahomeee -->
         <a-col :span="24">
-          <a-form-item
-            label="Case UUID"
-            name="case_uuid"
-            required
-            disabled
-          >
-            <a-input v-model:value="casesFormState.case_uuid" />
+          <a-form-item label="Case UUID" name="case_uuid" required>
+            <a-input disabled v-model:value="casesFormState.case_uuid" />
           </a-form-item>
         </a-col>
         <a-col :span="24">
@@ -59,13 +63,11 @@ const { casesFormState, isEditingCases, createCase, updateSingleCase } =
             <a-input v-model:value="casesFormState.location" />
           </a-form-item>
         </a-col>
-        <a-col :span="24">
+        <a-col :span="24" v-if="userRole === 'user'">
           <a-form-item label="Privacy" name="is_anonymous" required>
             <a-radio-group v-model:value="casesFormState.is_anonymous">
-              <a-radio-button :value="true">Submit Anonymously</a-radio-button>
-              <a-radio-button :value="false"
-                >Submit my information</a-radio-button
-              >
+              <a-radio-button :value="1">Submit Anonymously</a-radio-button>
+              <a-radio-button :value="0">Submit my information</a-radio-button>
             </a-radio-group>
           </a-form-item>
         </a-col>
@@ -78,8 +80,21 @@ const { casesFormState, isEditingCases, createCase, updateSingleCase } =
             </a-select>
           </a-form-item>
         </a-col>
-
         <a-col :span="24">
+          <a-form-item label="Assigned to" name="assigned_officer" required>
+            <a-select v-model:value="casesFormState.assigned_officer">
+              <a-select-option
+                v-for="officer in officers.data"
+                :key="officer.id"
+                :value="officer.id"
+              >
+                {{ officer.full_name }}
+              </a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+
+        <!-- <a-col :span="24">
           <a-form-item label="Is closed" name="is_closed" required>
             <a-radio-group v-model:value="casesFormState.is_closed">
               <a-radio-button :value="true">Case  is Closed</a-radio-button>
@@ -88,12 +103,15 @@ const { casesFormState, isEditingCases, createCase, updateSingleCase } =
               >
             </a-radio-group>
           </a-form-item>
-        </a-col>
+        </a-col> -->
       </a-row>
 
-      <!-- <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
+      <a-form-item
+        v-if="showSubmitButton"
+        :wrapper-col="{ offset: 8, span: 16 }"
+      >
         <a-button type="primary" @click="submit()">Submit</a-button>
-      </a-form-item> -->
+      </a-form-item>
     </a-form>
   </div>
 </template>
