@@ -54,6 +54,13 @@ const onFinishFailed = (errorInfo: any) => {
         </a-col>
 
         <a-col :span="24">
+          <a-form-item label="Temporary password" name="password" required>
+            <a-input v-model:value="userFormState.password" />
+          </a-form-item>
+        </a-col>
+
+
+        <a-col :span="24">
           <a-form-item label="Role" name="role" required>
             <a-select v-model:value="userFormState.role">
               <a-select-option value="admin">Super admin</a-select-option>

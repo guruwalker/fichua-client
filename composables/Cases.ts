@@ -2,6 +2,8 @@ export function useCases() {
 
   const userId = useCookie("user_id")
 
+  const userRole = useCookie<string | undefined>("role");
+
   const router = useRouter();
 
   const cases = ref<IGetAllCases>();
@@ -113,7 +115,7 @@ export function useCases() {
           duration: 8,
         });
 
-        router.push("/cases");
+        userRole.value === 'user' ? router.push("/updates") : router.push("/cases");
         resetCasesFormState();
         return response?.data;
       } else {
@@ -171,7 +173,7 @@ export function useCases() {
           duration: 8,
         });
 
-        router.push("/cases");
+        userRole.value === 'user' ? router.push("/updates") : router.push("/cases");
         resetCasesFormState();
         isEditingCases.value = false;
         return response?.data;
