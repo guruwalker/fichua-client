@@ -52,6 +52,16 @@ const onFinishFailed = (errorInfo: any) => {
             <a-input v-model:value="userFormState.email" />
           </a-form-item>
         </a-col>
+
+        <a-col :span="24">
+          <a-form-item label="Role" name="role" required>
+            <a-select v-model:value="casesFormState.role">
+              <a-select-option value="admin">Super admin</a-select-option>
+              <a-select-option value="officer">Officer</a-select-option>
+              <a-select-option value="user">Use</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
       </a-row>
     </a-form>
   </div>
