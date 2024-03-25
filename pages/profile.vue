@@ -66,10 +66,10 @@ profileFormState.value = response.data;
         </div>
       </a-tab-pane>
       <!-- Password reset -->
-      <a-tab-pane key="3" tab="Reset your password"
+      <!-- <a-tab-pane key="3" tab="Reset your password"
         >
         <FormsResetPasswordForm />
-      </a-tab-pane>
+      </a-tab-pane> -->
     </a-tabs>
   </div>
 </template>

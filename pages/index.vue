@@ -18,8 +18,10 @@ useHead({
       align-items: center;
     "
   >
-    <div>
+    <a-card>
       <FormsAuthLoginForm />
-    </div>
+
+      <p>Don't have an account? <NuxtLink to="/register">Create one</NuxtLink></p>
+    </a-card>
   </div>
 </template>
